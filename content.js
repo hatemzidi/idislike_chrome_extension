@@ -12,9 +12,8 @@ $(".timelineUnitContainer .UFIPhotoAttachLinkWrapper").css("top", "-26px");
 $(".timelineUnitContainer .UFIPhotoAttachLinkWrapper").css("margin-bottom", "0px");
 
 var thumbdown16 = "chrome-extension://" + myid + "/images/dislikeicon16.png";
-var thumbdown24 = "chrome-extension://" + myid + "/images/dislikeicon24.png";
-var thumbdown32 = "chrome-extension://" + myid + "/images/dislikeicon32.png";
-
+//var thumbdown24 = "chrome-extension://" + myid + "/images/dislikeicon24.png";
+//var thumbdown32 = "chrome-extension://" + myid + "/images/dislikeicon32.png";
 
 var dislikehtml_comment_timeline = "<div class='keyboard_item comment_timeline ' style='" +
     "cursor:pointer;" +
@@ -31,6 +30,20 @@ var dislikehtml_comment_timeline = "<div class='keyboard_item comment_timeline '
     "background:url(" + thumbdown16 + ") no-repeat 0 1px;" +
     "'></div>";
 
+var dislikehtml_comment_pages = "<div class='keyboard_item comment_pages ' style='" +
+    "cursor:pointer;" +
+    "width:15px;" +
+    "height:21px;" +
+    "float:right;" +
+    "margin-bottom:-20px;" +
+    "top:-24px;" +
+    "border:1px solid rgba(0,0,0,0);" +
+    "border-top:none;" +
+    "position:relative;" +
+    "z-index:1;" +
+    "background:url(" + thumbdown16 + ") no-repeat 0 6px;" +
+    "'></div>";
+
 var dislikehtml_comment_newsfeed = "<div class='keyboard_item comment_newsfeed' style='" +
     "cursor:pointer;" +
     "width:17px;" +
@@ -45,7 +58,7 @@ var dislikehtml_comment_newsfeed = "<div class='keyboard_item comment_newsfeed' 
     "background:url(" + thumbdown16 + ") no-repeat 0 6px;" +
     "'></div>";
 
-var dislikehtml_comment_signle_newsfeed = "<div class='keyboard_item comment_signle_newsfeed' style='" +
+var dislikehtml_comment_signle_newsfeed = "<div class='keyboard_item comment_single_newsfeed' style='" +
     "cursor:pointer;" +
     "width:13px;" +
     "height:21px;" +
@@ -60,7 +73,21 @@ var dislikehtml_comment_signle_newsfeed = "<div class='keyboard_item comment_sig
     "background:url(" + thumbdown16 + ") no-repeat 0 6px;" +
     "'></div>";
 
-var dislikehtml_comment_photofeedback= "<div class='keyboard_item comment_photofeedback' style='" +
+var dislikehtml_comment_photofeedback = "<div class='keyboard_item comment_photofeedback' style='" +
+    "cursor:pointer;" +
+    "width:15px;" +
+    "height:21px;" +
+    "float:right;" +
+    "margin-bottom:-20px;" +
+    "top:-24px;" +
+    "border:1px solid rgba(0,0,0,0);" +
+    "border-top:none;" +
+    "position:relative;" +
+    "z-index:1;" +
+    "background:url(" + thumbdown16 + ") no-repeat 0 6px;" +
+    "'></div>";
+
+var dislikehtml_comment_photomodal = "<div class='keyboard_item comment_photomodal' style='" +
     "cursor:pointer;" +
     "width:13px;" +
     "height:21px;" +
@@ -105,6 +132,21 @@ var dislikehtml_status_newsfeed = '<div class="keyboard_item status_keyboard sta
     "background:url(" + thumbdown16 + ") no-repeat 6px 7px;" +
     '"></div>';
 
+var dislikehtml_status_pages = '<div class="keyboard_item status_keyboard status_newsfeed" ktarget="status" style="' +
+    "cursor:pointer;" +
+    "width:22px;" +
+    "height:27px;" +
+    "float:right;" +
+    "margin-bottom:10px;" +
+    "top:2px;" +
+    "border:1px solid rgba(0,0,0,0);" +
+    "border-top:none;" +
+    "position:relative;" +
+    "z-index:1;" +
+    "padding-right:5px;" +
+    "background:url(" + thumbdown16 + ") no-repeat 6px 7px;" +
+    '"></div>';
+
 
 if (window.location.hostname.indexOf("facebook") > -1) {
     find_text_elems();
@@ -116,8 +158,10 @@ function find_text_elems() {
     var $comment = $(".textBoxContainer").parent();
     var $comment_timeline = $comment.parents(".fbTimelineUFI.uiCommentContainer");
     var $comment_newsfeed = $comment.parents(".storyInnerWrapper");
-    var $comment_signle_newsfeed = $comment.parents(".fbTimelineUFI:not(:has(.uiCommentContainer))");
+    var $comment_pages = $comment.parents("ol.fbTimelineCapsule");
+    var $comment_signle_newsfeed = $comment.parents(".fbTimelineUFI:not(.uiCommentContainer)");
     var $comment_photofeedback = $comment.parents(".fbPhotosPhotoFeedback");
+    var $comment_photomodal = $comment.parents("form.fbPhotosSnowliftFeedbackForm");
 
     var direction = $('body').css('direction');
 
@@ -125,14 +169,29 @@ function find_text_elems() {
         if ($(this).find(".keyboard_item").length == 0) {
 
             var $selector = "", $keyboard_item;
+
             if ($comment_timeline.length > 0) {
                 $selector = dislikehtml_comment_timeline;
-            } else if ($comment_newsfeed.length > 0) {
+            }
+
+            if ($comment_newsfeed.length > 0) {
                 $selector = dislikehtml_comment_newsfeed;
-            } else if ($comment_signle_newsfeed.length > 0) {
-                $selector = dislikehtml_comment_signle_newsfeed
-            } else if ($comment_photofeedback.length > 0) {
-                $selector = dislikehtml_comment_photofeedback
+            }
+
+            if ($comment_pages.length > 0) {
+                $selector = dislikehtml_comment_pages;
+            }
+
+            if ($comment_signle_newsfeed.length > 0) {
+                $selector = dislikehtml_comment_signle_newsfeed;
+            }
+
+            if ($comment_photofeedback.length > 0) {
+                $selector = dislikehtml_comment_photofeedback;
+            }
+
+            if ($comment_photomodal.length > 0) {
+                $selector = dislikehtml_comment_photomodal;
             }
 
             if ($selector != "") {
@@ -156,6 +215,7 @@ function find_text_elems() {
     var $elem = $("._52lb.lfloat")
     var $elem_timeline = $elem.parents("div._1dsp._4-");
     var $elem_newsfeed = $elem.parents("div._1dsp:not(:has(._4-))");
+    var $elem_pages = $elem.parents("div.groupComposerCleanWrap");
     var $selector = ""; //rest me
 
     if ($elem.find(".status_keyboard").length > 0) {
@@ -163,8 +223,14 @@ function find_text_elems() {
     } else {
         if ($elem_timeline.length > 0) {
             $selector = dislikehtml_status_timeline;
-        } else if ($elem_newsfeed.length > 0) {
+        }
+
+        if ($elem_newsfeed.length > 0) {
             $selector = dislikehtml_status_newsfeed;
+        }
+
+        if ($elem_pages.length > 0) {
+            $selector = dislikehtml_status_pages;
         }
 
 
@@ -222,6 +288,6 @@ function insertAtCursor(myField, myValue) {
 }
 
 
-function updateCounter(item){
+function updateCounter(item) {
     item.append('<img src="http://idislike.hatemzidi.com/update.php"/>')
 }
