@@ -1,31 +1,27 @@
 {
-   "background": {
-      "page": "background.html"
-   },
-// no pop up yet
-// "browser_action": {
-//      "default_icon": "icons/icon32.png",
-//      "default_popup": "popup.html",
-//      "default_title": "iDislike"
-//   },
-   "content_scripts": [ {
-      "all_frames": true,
-      "js": [ "jquery.min.js", "content.js" ],
-      "matches": [ "http://*/*", "https://*/*" ],
-      "run_at": "document_start"
-   } ],
-   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-   "description": "Dislike button for Facebook",
-   "homepage_url": "http://idislike.hatemzidi.com/",
-   "icons": {
-      "128": "icons/icon128.png",
-      "16": "icons/icon16.png",
-      "48": "icons/icon48.png"
-   },
-//   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC4zN81PTSJOPN56oC4srU/aqBsPjJLAOOO+L772Edhx8k644w4+7gJ830vvW2hGbIgPMUXYRhra/zfg38lx+2Sr64SGd7K2QIDUN8aUk5S83IqF2lJrpXiZuyuUKo8SVYTMQcFjTPAKCTYEus5xDI1pdZ1DD4h7YDIUJB1sqgXPwIDAQAB",
-   "manifest_version": 2,
-   "name": "Dislike button for Facebook",
-   "permissions": [ "tabs", "http://*/*", "https://*/*", "contextMenus", "webNavigation", "notifications", "cookies", "webRequest" ],
-   "version": "0.1",
-   "web_accessible_resources": [ "images/*" ]
+    "manifest_version": 2,
+    "name": "Dislike button for Facebook",
+    "version": "0.2",
+    "background": {
+        "page": "background.html"
+    },
+    "content_scripts": [
+        {
+            "all_frames": true,
+            "js": [ "jquery.min.js", "content.js" ],
+            "matches": [ "http://*/*", "https://*/*" ],
+            "run_at": "document_start"
+        }
+    ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "description": "Dislike button for Facebook",
+    "homepage_url": "http://idislike.hatemzidi.com/",
+    "icons": {
+        "128": "icons/icon128.png",
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png"
+    },
+
+    "permissions": [ "tabs", "http://*/*", "https://*/*", "contextMenus", "webNavigation", "notifications", "cookies", "webRequest" ],
+    "web_accessible_resources": [ "images/*" ]
 }

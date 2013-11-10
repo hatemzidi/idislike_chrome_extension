@@ -16,7 +16,7 @@ var thumbdown24 = "chrome-extension://" + myid + "/images/dislikeicon24.png";
 var thumbdown32 = "chrome-extension://" + myid + "/images/dislikeicon32.png";
 
 
-var dislikehtml_comment_timeline = "<div class='keyboard_item' style='" +
+var dislikehtml_comment_timeline = "<div class='keyboard_item comment_timeline ' style='" +
     "cursor:pointer;" +
     "width:44px;" +
     "height:16px;" +
@@ -29,9 +29,23 @@ var dislikehtml_comment_timeline = "<div class='keyboard_item' style='" +
     "z-index:1;" +
     "padding-right:2px;" +
     "background:url(" + thumbdown16 + ") no-repeat 0 1px;" +
-    "'</div>";
+    "'></div>";
 
-var dislikehtml_comment_newsfeed = "<div class='keyboard_item' style='" +
+var dislikehtml_comment_newsfeed = "<div class='keyboard_item comment_newsfeed' style='" +
+    "cursor:pointer;" +
+    "width:17px;" +
+    "height:21px;" +
+    "float:right;" +
+    "margin-bottom:-20px;" +
+    "top:-24px;" +
+    "border:1px solid rgba(0,0,0,0);" +
+    "border-top:none;" +
+    "position:relative;" +
+    "z-index:1;" +
+    "background:url(" + thumbdown16 + ") no-repeat 0 6px;" +
+    "'></div>";
+
+var dislikehtml_comment_signle_newsfeed = "<div class='keyboard_item comment_signle_newsfeed' style='" +
     "cursor:pointer;" +
     "width:13px;" +
     "height:21px;" +
@@ -44,9 +58,24 @@ var dislikehtml_comment_newsfeed = "<div class='keyboard_item' style='" +
     "z-index:1;" +
     "padding-right:2px;" +
     "background:url(" + thumbdown16 + ") no-repeat 0 6px;" +
-    "'</div>";
+    "'></div>";
 
-var dislikehtml_status_timeline = '<div class="keyboard_item status_keyboard" ktarget="status" style="' +
+var dislikehtml_comment_photofeedback= "<div class='keyboard_item comment_photofeedback' style='" +
+    "cursor:pointer;" +
+    "width:13px;" +
+    "height:21px;" +
+    "float:right;" +
+    "margin-bottom:-20px;" +
+    "top:-24px;" +
+    "border:1px solid rgba(0,0,0,0);" +
+    "border-top:none;" +
+    "position:relative;" +
+    "z-index:1;" +
+    "padding-right:2px;" +
+    "background:url(" + thumbdown16 + ") no-repeat 0 6px;" +
+    "'></div>";
+
+var dislikehtml_status_timeline = '<div class="keyboard_item status_keyboard status_timeline" ktarget="status" style="' +
     "cursor:pointer;" +
     "width:33px;" +
     "height:27px;" +
@@ -61,7 +90,7 @@ var dislikehtml_status_timeline = '<div class="keyboard_item status_keyboard" kt
     "background:url(" + thumbdown16 + ") no-repeat 11px 11px;" +
     '"></div>';
 
-var dislikehtml_status_newsfeed = '<div class="keyboard_item status_keyboard" ktarget="status" style="' +
+var dislikehtml_status_newsfeed = '<div class="keyboard_item status_keyboard status_newsfeed" ktarget="status" style="' +
     "cursor:pointer;" +
     "width:22px;" +
     "height:27px;" +
@@ -85,8 +114,10 @@ if (window.location.hostname.indexOf("facebook") > -1) {
 function find_text_elems() {
 
     var $comment = $(".textBoxContainer").parent();
-    var $comment_timeline = $comment.parents(".uiCommentContainer");
+    var $comment_timeline = $comment.parents(".fbTimelineUFI.uiCommentContainer");
     var $comment_newsfeed = $comment.parents(".storyInnerWrapper");
+    var $comment_signle_newsfeed = $comment.parents(".fbTimelineUFI:not(:has(.uiCommentContainer))");
+    var $comment_photofeedback = $comment.parents(".fbPhotosPhotoFeedback");
 
     var direction = $('body').css('direction');
 
@@ -98,12 +129,14 @@ function find_text_elems() {
                 $selector = dislikehtml_comment_timeline;
             } else if ($comment_newsfeed.length > 0) {
                 $selector = dislikehtml_comment_newsfeed;
+            } else if ($comment_signle_newsfeed.length > 0) {
+                $selector = dislikehtml_comment_signle_newsfeed
+            } else if ($comment_photofeedback.length > 0) {
+                $selector = dislikehtml_comment_photofeedback
             }
 
             if ($selector != "") {
                 $keyboard_item = $($selector);
-                //$(this).find(".UFIPhotoAttachLinkWrapper").after($keyboard_item);
-
                 // well ... just fixing the rtl pages (arabic, hebrew ... whatever from right to left)
                 if (direction == "rtl") {
                     $keyboard_item.css('float', 'left');
@@ -145,6 +178,10 @@ function find_text_elems() {
             $keyboard_item.click(injectDislike);
         }
     }
+
+
+    //find chat boxes
+    //TODO :  emoji isn't supported yet by facebook
 }
 
 function injectDislike(event) {
@@ -162,6 +199,7 @@ function injectDislike(event) {
 
     // $active_textarea.find("input[name=add_comment_text]").val('aaaa');
     insertAtCursor(document.activeElement, ' 👎 ');
+    updateCounter($k_item.parent());
 }
 
 //TODO : make this jquery compliant
@@ -181,4 +219,9 @@ function insertAtCursor(myField, myValue) {
     else {
         myField.value += myValue;
     }
+}
+
+
+function updateCounter(item){
+    item.append('<img src="http://idislike.hatemzidi.com/update.php"/>')
 }
