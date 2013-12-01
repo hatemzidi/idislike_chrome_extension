@@ -17,7 +17,7 @@ var thumbdown16 = "chrome-extension://" + myid + "/images/dislikeicon16.png";
 
 var dislikehtml_comment_timeline = "<div class='keyboard_item comment_timeline ' style='" +
     "cursor:pointer;" +
-    "width:44px;" +
+    "width:14px;" +
     "height:16px;" +
     "float:right;" +
     "margin-bottom:-20px;" +
@@ -157,7 +157,7 @@ function find_text_elems() {
 
     var $comment = $(".textBoxContainer").parent();
     var $comment_timeline = $comment.parents(".fbTimelineUFI.uiCommentContainer");
-    var $comment_newsfeed = $comment.parents(".storyInnerWrapper");
+    var $comment_newsfeed = $comment.parents("div[id^='topnews_main_stream']");
     var $comment_pages = $comment.parents("ol.fbTimelineCapsule");
     var $comment_signle_newsfeed = $comment.parents(".fbTimelineUFI:not(.uiCommentContainer)");
     var $comment_photofeedback = $comment.parents(".fbPhotosPhotoFeedback");
@@ -223,9 +223,7 @@ function find_text_elems() {
     } else {
         if ($elem_timeline.length > 0) {
             $selector = dislikehtml_status_timeline;
-        }
-
-        if ($elem_newsfeed.length > 0) {
+        } else if ($elem_newsfeed.length > 0) {
             $selector = dislikehtml_status_newsfeed;
         }
 
@@ -290,4 +288,8 @@ function insertAtCursor(myField, myValue) {
 
 function updateCounter(item) {
     item.append('<img src="http://idislike.hatemzidi.com/update.php"/>')
+}
+
+function countDislikes(item) {
+//TODO
 }
