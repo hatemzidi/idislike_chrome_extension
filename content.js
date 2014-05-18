@@ -6,146 +6,29 @@
 
 var myid = chrome.i18n.getMessage("@@extension_id");
 
-
-// Fix cam button position
-$(".timelineUnitContainer .UFIPhotoAttachLinkWrapper").css("top", "-26px");
-$(".timelineUnitContainer .UFIPhotoAttachLinkWrapper").css("margin-bottom", "0px");
-
 var thumbdown16 = "chrome-extension://" + myid + "/images/dislikeicon16.png";
 //var thumbdown24 = "chrome-extension://" + myid + "/images/dislikeicon24.png";
 //var thumbdown32 = "chrome-extension://" + myid + "/images/dislikeicon32.png";
 
-var dislikehtml_comment_timeline = "<div class='keyboard_item comment_timeline ' style='" +
-    "cursor:pointer;" +
-    "width:14px;" +
-    "height:16px;" +
-    "float:right;" +
-    "margin-bottom:-20px;" +
-    "top:-24px;" +
-    "border:1px solid rgba(0,0,0,0);" +
-    "border-top:none;" +
-    "position:relative;" +
-    "z-index:1;" +
-    "padding-right:2px;" +
-    "background:url(" + thumbdown16 + ") no-repeat 0 1px;" +
-    "'></div>";
 
-var dislikehtml_comment_pages = "<div class='keyboard_item comment_pages ' style='" +
-    "cursor:pointer;" +
-    "width:15px;" +
-    "height:21px;" +
-    "float:right;" +
-    "margin-bottom:-20px;" +
-    "top:-24px;" +
-    "border:1px solid rgba(0,0,0,0);" +
-    "border-top:none;" +
-    "position:relative;" +
-    "z-index:1;" +
-    "background:url(" + thumbdown16 + ") no-repeat 0 6px;" +
-    "'></div>";
+var dislikehtml_comment = "<div class='keyboard_item comment_newsfeed' style='" +
+    "bottom: 0;top:0;" +
+    "position: absolute;" +
+    "right: 0;" +
+    "'><i class='dislike_thumb UFICommentPhotoIcon' style ='" +
+    "background:url(" + thumbdown16 + ") no-repeat 0 0px;" +
+    "display: block;" +
+    "height: 21px; width:36px;" +
+    "cursor: pointer;" +
+    "'></i></div>";
 
-var dislikehtml_comment_newsfeed = "<div class='keyboard_item comment_newsfeed' style='" +
+var dislikehtml_status = '<span class="_1dsr keyboard_item status_keyboard status_timeline" ' +
+    'ktarget="status" style="' +
     "cursor:pointer;" +
-    "width:17px;" +
-    "height:21px;" +
-    "float:right;" +
-    "margin-bottom:-20px;" +
-    "top:-24px;" +
-    "border:1px solid rgba(0,0,0,0);" +
-    "border-top:none;" +
-    "position:relative;" +
-    "z-index:1;" +
-    "background:url(" + thumbdown16 + ") no-repeat 0 6px;" +
-    "'></div>";
-
-var dislikehtml_comment_signle_newsfeed = "<div class='keyboard_item comment_single_newsfeed' style='" +
-    "cursor:pointer;" +
-    "width:13px;" +
-    "height:21px;" +
-    "float:right;" +
-    "margin-bottom:-20px;" +
-    "top:-24px;" +
-    "border:1px solid rgba(0,0,0,0);" +
-    "border-top:none;" +
-    "position:relative;" +
-    "z-index:1;" +
-    "padding-right:2px;" +
-    "background:url(" + thumbdown16 + ") no-repeat 0 6px;" +
-    "'></div>";
-
-var dislikehtml_comment_photofeedback = "<div class='keyboard_item comment_photofeedback' style='" +
-    "cursor:pointer;" +
-    "width:15px;" +
-    "height:21px;" +
-    "float:right;" +
-    "margin-bottom:-20px;" +
-    "top:-24px;" +
-    "border:1px solid rgba(0,0,0,0);" +
-    "border-top:none;" +
-    "position:relative;" +
-    "z-index:1;" +
-    "background:url(" + thumbdown16 + ") no-repeat 0 6px;" +
-    "'></div>";
-
-var dislikehtml_comment_photomodal = "<div class='keyboard_item comment_photomodal' style='" +
-    "cursor:pointer;" +
-    "width:13px;" +
-    "height:21px;" +
-    "float:right;" +
-    "margin-bottom:-20px;" +
-    "top:-24px;" +
-    "border:1px solid rgba(0,0,0,0);" +
-    "border-top:none;" +
-    "position:relative;" +
-    "z-index:1;" +
-    "padding-right:2px;" +
-    "background:url(" + thumbdown16 + ") no-repeat 0 6px;" +
-    "'></div>";
-
-var dislikehtml_status_timeline = '<div class="keyboard_item status_keyboard status_timeline" ktarget="status" style="' +
-    "cursor:pointer;" +
-    "width:33px;" +
-    "height:27px;" +
-    "float:right;" +
-    "margin-bottom:10px;" +
-    "top:2px;" +
-    "border:1px solid rgba(0,0,0,0);" +
-    "border-top:none;" +
-    "position:relative;" +
-    "z-index:1;" +
-    "padding-right:5px;" +
-    "background:url(" + thumbdown16 + ") no-repeat 11px 11px;" +
-    '"></div>';
-
-var dislikehtml_status_newsfeed = '<div class="keyboard_item status_keyboard status_newsfeed" ktarget="status" style="' +
-    "cursor:pointer;" +
-    "width:22px;" +
-    "height:27px;" +
-    "float:right;" +
-    "margin-bottom:10px;" +
-    "top:2px;" +
-    "border:1px solid rgba(0,0,0,0);" +
-    "border-top:none;" +
-    "position:relative;" +
-    "z-index:1;" +
-    "padding-right:5px;" +
-    "background:url(" + thumbdown16 + ") no-repeat 6px 7px;" +
-    '"></div>';
-
-var dislikehtml_status_pages = '<div class="keyboard_item status_keyboard status_newsfeed" ktarget="status" style="' +
-    "cursor:pointer;" +
-    "width:22px;" +
-    "height:27px;" +
-    "float:right;" +
-    "margin-bottom:10px;" +
-    "top:2px;" +
-    "border:1px solid rgba(0,0,0,0);" +
-    "border-top:none;" +
-    "position:relative;" +
-    "z-index:1;" +
-    "padding-right:5px;" +
-    "background:url(" + thumbdown16 + ") no-repeat 6px 7px;" +
-    '"></div>';
+    "background-image:url(" + thumbdown16 + ");" +
+    "background-repeat: no-repeat;" +
+    "background-position: center center;" +
+    '"></span>';
 
 
 if (window.location.hostname.indexOf("facebook") > -1) {
@@ -154,93 +37,41 @@ if (window.location.hostname.indexOf("facebook") > -1) {
 }
 
 function find_text_elems() {
+    var $el;
 
-    var $comment = $(".textBoxContainer").parent();
-    var $comment_timeline = $comment.parents(".fbTimelineUFI.uiCommentContainer");
-    var $comment_newsfeed = $comment.parents("div[id^='topnews_main_stream']");
-    var $comment_pages = $comment.parents("ol.fbTimelineCapsule");
-    var $comment_signle_newsfeed = $comment.parents(".fbTimelineUFI:not(.uiCommentContainer)");
-    var $comment_photofeedback = $comment.parents(".fbPhotosPhotoFeedback");
-    var $comment_photomodal = $comment.parents("form.fbPhotosSnowliftFeedbackForm");
+    // --------- find comments
+    var $UFICommentAttachmentButtons = $('.UFICommentAttachmentButtons');
 
-    var direction = $('body').css('direction');
+    // TODO check for rtl direction :(
+    // $UFICommentAttachmentButtons.css("width","50px");
 
-    $comment.each(function () {
+    $UFICommentAttachmentButtons.each(function () {
+
         if ($(this).find(".keyboard_item").length == 0) {
+            $el = $(dislikehtml_comment);
 
-            var $selector = "", $keyboard_item;
+            $(this).append($el);
 
-            if ($comment_timeline.length > 0) {
-                $selector = dislikehtml_comment_timeline;
-            }
-
-            if ($comment_newsfeed.length > 0) {
-                $selector = dislikehtml_comment_newsfeed;
-            }
-
-            if ($comment_pages.length > 0) {
-                $selector = dislikehtml_comment_pages;
-            }
-
-            if ($comment_signle_newsfeed.length > 0) {
-                $selector = dislikehtml_comment_signle_newsfeed;
-            }
-
-            if ($comment_photofeedback.length > 0) {
-                $selector = dislikehtml_comment_photofeedback;
-            }
-
-            if ($comment_photomodal.length > 0) {
-                $selector = dislikehtml_comment_photomodal;
-            }
-
-            if ($selector != "") {
-                $keyboard_item = $($selector);
-                // well ... just fixing the rtl pages (arabic, hebrew ... whatever from right to left)
-                if (direction == "rtl") {
-                    $keyboard_item.css('float', 'left');
-                    if ($comment_timeline.length > 0) {
-                        $keyboard_item.css('background-position', '31px 1px');
-                    }
-                }
-
-                $(this).append($keyboard_item);
-                $keyboard_item.click(injectDislike);
-            }
+            $el.click(injectDislike);
         }
     });
 
-    // find status boxes in time line/newsfeed
+
+    // --------- find status boxes
     var $buttonWrap = $('<div class="lfloat" id="stats_keyboard"><a class="_1dsq _4_nu" href="#" role="button"></a></div>');
-    var $elem = $("._52lb.lfloat")
-    var $elem_timeline = $elem.parents("div._1dsp._4-");
-    var $elem_newsfeed = $elem.parents("div._1dsp:not(:has(._4-))");
-    var $elem_pages = $elem.parents("div.groupComposerCleanWrap");
-    var $selector = ""; //rest me
+    var $elem = $("._52lb.lfloat");
 
     if ($elem.find(".status_keyboard").length > 0) {
+        // already added ! no need to redo this
         return;
     } else {
-        if ($elem_timeline.length > 0) {
-            $selector = dislikehtml_status_timeline;
-        } else if ($elem_newsfeed.length > 0) {
-            $selector = dislikehtml_status_newsfeed;
-        }
+        var $keyboard_icon = $(dislikehtml_status);
+        $el = $buttonWrap.clone();
+        $keyboard_icon.appendTo($el.find("a"));
 
-        if ($elem_pages.length > 0) {
-            $selector = dislikehtml_status_pages;
-        }
+        $elem.find("div:first").append($el);
 
-
-        if ($selector != "") {
-            var $keyboard_icon = $($selector);
-            var $keyboard_item = $buttonWrap.clone();
-            $keyboard_icon.appendTo($keyboard_item.find("a"));
-
-            $elem.find("div:first").append($keyboard_item);
-
-            $keyboard_item.click(injectDislike);
-        }
+        $el.click(injectDislike);
     }
 
 
