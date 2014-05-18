@@ -15,6 +15,7 @@ var dislikehtml_comment = "<div class='keyboard_item comment_newsfeed' style='" 
     "right: 0;" +
     "'><i class='dislike_thumb UFICommentPhotoIcon' style ='" +
     "background:url(" + thumbdown16 + ") no-repeat 0 0px;" +
+    "backgound-size : 16px 16px;" +
     "display: block;" +
     "height: 21px; width:36px;" +
     "cursor: pointer;" +
@@ -26,7 +27,7 @@ var dislikehtml_status = '<span class="keyboard_item status_timeline _1dsr" ' +
     "background-image:url(" + thumbdown16 + ");" +
     "background-repeat: no-repeat;" +
     "background-position: center center;" +
-    "backgound-size : 16px 16px" +
+    "backgound-size : 16px 16px;" +
     '"></span>';
 
 
