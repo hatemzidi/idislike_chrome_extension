@@ -7,9 +7,6 @@
 var myid = chrome.i18n.getMessage("@@extension_id");
 
 var thumbdown16 = "chrome-extension://" + myid + "/images/dislikeicon16.png";
-//var thumbdown24 = "chrome-extension://" + myid + "/images/dislikeicon24.png";
-//var thumbdown32 = "chrome-extension://" + myid + "/images/dislikeicon32.png";
-
 
 var dislikehtml_comment = "<div class='keyboard_item comment_newsfeed' style='" +
     "bottom: 0;top:0;" +
@@ -58,12 +55,12 @@ function find_text_elems() {
 
 
     // --------- find status boxes
-    var $buttonWrap = $('<div class="lfloat" id="stats_keyboard"><a class="_1dsq _4_nu" href="#" role="button"></a></div>');
+    var $buttonWrap = $('<div class="lfloat" id="stats_keyboard"><a class="_1dsq _4_nu" href="#"></a></div>');
     var $elem = $("._52lb.lfloat");
 
     if ($elem.find(".status_keyboard").length > 0) {
         // already added ! no need to redo this
-        return;
+        return false;
     } else {
         var $keyboard_icon = $(dislikehtml_status);
         $el = $buttonWrap.clone();
@@ -91,29 +88,8 @@ function injectDislike(event) {
     }
 
     $active_textarea.focus();
-
-    // $active_textarea.find("input[name=add_comment_text]").val('aaaa');
-    insertAtCursor(document.activeElement, ' 👎 ');
+    $active_textarea.insertAtCaret(' 👎 ');
     updateCounter($k_item.parent());
-}
-
-//TODO : make this jquery compliant
-function insertAtCursor(myField, myValue) {
-    if (document.selection) {
-        myField.focus();
-        sel = document.selection.createRange();
-        sel.text = myValue;
-    }
-    else if (myField.selectionStart || myField.selectionStart == '0') {
-        var startPos = myField.selectionStart;
-        var endPos = myField.selectionEnd;
-        myField.value = myField.value.substring(0, startPos) + myValue + myField.value.substring(endPos, myField.value.length);
-        myField.selectionStart = startPos + myValue.length;
-        myField.selectionEnd = startPos + myValue.length;
-    }
-    else {
-        myField.value += myValue;
-    }
 }
 
 
