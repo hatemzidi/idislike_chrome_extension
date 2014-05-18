@@ -126,7 +126,7 @@ function findAndAddThumb() {
         $el = $buttonWrap.clone();
         $keyboard_icon.appendTo($el.find("a"));
 
-        $elem.find("div:first").append($el);
+        $elem.find("div:first:not(.lfloat)").append($el);
 
         $el.click(injectDislike);
     }
