@@ -19,7 +19,7 @@ var dislikehtml_comment = "<div class='keyboard_item comment_newsfeed' style='" 
     "cursor: pointer;" +
     "'></i></div>";
 
-var dislikehtml_status = '<span class="_1dsr keyboard_item status_keyboard status_timeline" ' +
+var dislikehtml_status = '<span class="keyboard_item status_timeline _1dsr" ' +
     'ktarget="status" style="' +
     "cursor:pointer;" +
     "background-image:url(" + thumbdown16 + ");" +
@@ -39,8 +39,11 @@ function find_text_elems() {
     // --------- find comments
     var $UFICommentAttachmentButtons = $('.UFICommentAttachmentButtons');
 
-    // TODO check for rtl direction :(
-    // $UFICommentAttachmentButtons.css("width","50px");
+    // well ... just fixing the rtl pages (arabic, hebrew ... whatever from right to left)
+    var direction = $('body').css('direction');
+    if (direction == "rtl") {
+        $UFICommentAttachmentButtons.css("width", "50px");
+    }
 
     $UFICommentAttachmentButtons.each(function () {
 
@@ -58,7 +61,7 @@ function find_text_elems() {
     var $buttonWrap = $('<div class="lfloat" id="stats_keyboard"><a class="_1dsq _4_nu" href="#"></a></div>');
     var $elem = $("._52lb.lfloat");
 
-    if ($elem.find(".status_keyboard").length > 0) {
+    if ($elem.find(".keyboard_item").length > 0) {
         // already added ! no need to redo this
         return false;
     } else {
