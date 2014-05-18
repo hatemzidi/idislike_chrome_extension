@@ -70,13 +70,12 @@ if (window.location.hostname.indexOf("facebook") > -1) {
             "bottom: 0;" +
             "top:0;" +
             "position: absolute;" +
-            "right: 0;" +
             '}' +
             '.comment_newsfeed .dislike_thumb {' +
             "background-position: 0 0;" +
             "display: block;" +
             "height: 21px; " +
-            "width:36px;" +
+            "width:16px;" +
             '}' +
             '.status_area.dislike_thumb {' +
             "background-position: center center !important;" +
@@ -102,13 +101,19 @@ function findAndAddThumb() {
     // well ... just fixing the rtl pages (arabic, hebrew ... whatever from right to left)
     var direction = $('body').css('direction');
 
-    if (direction == "rtl") {
-        $UFICommentAttachmentButtons.css("width", "50px");
-    }
 
     $UFICommentAttachmentButtons.each(function () {
 
         if ($(this).find(".keyboard_item").length == 0) {
+
+            $(this).css("width", "55px");
+
+            if (direction == "rtl") {
+                $(this).find('.UFIPhotoAttachLinkWrapper').css('float', 'left');
+            } else {
+                $(this).find('.UFIPhotoAttachLinkWrapper').css('float', 'right');
+            }
+
             $el = $(dislikehtml_comment);
 
             $(this).append($el);
