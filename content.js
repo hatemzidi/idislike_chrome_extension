@@ -31,18 +31,25 @@ var dislikehtml_status = '<span class="keyboard_item status_timeline _1dsr" ' +
 
 if (window.location.hostname.indexOf("facebook") > -1) {
 
-    $( document ).ready(function() {
+    $(document).ready(function () {
+
+        //todo : make this as an external css file.
+        //todo : to add also the style from the HTML elements
         $("head").prepend('<style type="text/css">' +
+            '/*' +
+            'EmojiSymbols Font (c)blockworks - Kenichi Kaneko' +
+            'http://emojisymbols.com/' +
+            '*/' +
             ' @font-face {' +
             'font-family: "EmojiSymbols"; ' +
             "src: url(" + font + ") format('woff');" +
             'text-decoration: none;' +
             'font-style: normal;' +
             '/* Emoji unicode blocks */' +
-            'unicode-range: U+1F300-1F5FF, U+1F600-1F64F, U+1F680-1F6FF, U+2600-26FF;'+
+            'unicode-range: U+1F300-1F5FF, U+1F600-1F64F, U+1F680-1F6FF, U+2600-26FF;' +
             '}' +
             '.emj {' +
-            "font-family: 'EmojiSymbols', Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif !important;" +
+            "font-family: 'EmojiSymbols', Helvetica, Arial, 'lucida grande', tahoma, verdana, arial, sans-serif !important;" +
             'line-height: 1;' +
             '}' +
             "</style>");
