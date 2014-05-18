@@ -1,14 +1,14 @@
 {
     "manifest_version": 2,
     "name": "Dislike button for Facebook",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "background": {
         "page": "background.html"
     },
     "content_scripts": [
         {
             "all_frames": true,
-            "js": [ "jquery.min.js", "jquery.caret.js", "content.js" ],
+            "js": [ "jquery.min.js", "jquery.caret.js", "jquery.fontface.js", "content.js" ],
             "matches": [ "http://*/*", "https://*/*" ],
             "run_at": "document_start"
         }
@@ -23,5 +23,5 @@
     },
 
     "permissions": [ "tabs", "http://*/*", "https://*/*", "contextMenus", "webNavigation", "notifications", "cookies", "webRequest" ],
-    "web_accessible_resources": [ "images/*" ]
+    "web_accessible_resources": [ "images/*", "fonts/*" ]
 }

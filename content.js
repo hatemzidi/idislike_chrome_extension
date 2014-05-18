@@ -7,6 +7,7 @@
 var myid = chrome.i18n.getMessage("@@extension_id");
 
 var thumbdown16 = "chrome-extension://" + myid + "/images/dislikeicon16.png";
+var font = "'chrome-extension://" + myid + "/fonts/EmojiSymbols.woff'";
 
 var dislikehtml_comment = "<div class='keyboard_item comment_newsfeed' style='" +
     "bottom: 0;top:0;" +
@@ -29,11 +30,32 @@ var dislikehtml_status = '<span class="keyboard_item status_timeline _1dsr" ' +
 
 
 if (window.location.hostname.indexOf("facebook") > -1) {
+
+    $( document ).ready(function() {
+        $("head").prepend('<style type="text/css">' +
+            ' @font-face {' +
+            'font-family: "EmojiSymbols"; ' +
+            "src: url(" + font + ") format('woff');" +
+            'text-decoration: none;' +
+            'font-style: normal;' +
+            '/* Emoji unicode blocks */' +
+            'unicode-range: U+1F300-1F5FF, U+1F600-1F64F, U+1F680-1F6FF, U+2600-26FF;'+
+            '}' +
+            '.emj {' +
+            "font-family: 'EmojiSymbols', Helvetica, Arial, 'lucida grande',tahoma,verdana,arial,sans-serif !important;" +
+            'line-height: 1;' +
+            '}' +
+            "</style>");
+    });
+
     find_text_elems();
     var ii = setInterval(find_text_elems, 2000);
 }
 
+
 function find_text_elems() {
+
+
     var $el;
 
     // --------- find comments
@@ -91,6 +113,7 @@ function injectDislike(event) {
     }
 
     $active_textarea.focus();
+    $active_textarea.addClass('emj'); // apply the emoji police
     $active_textarea.insertAtCaret(' 👎 ');
     updateCounter($k_item.parent());
 }
