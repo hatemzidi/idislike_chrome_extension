@@ -26,6 +26,7 @@ var dislikehtml_status = '<span class="keyboard_item status_timeline _1dsr" ' +
     "background-image:url(" + thumbdown16 + ");" +
     "background-repeat: no-repeat;" +
     "background-position: center center;" +
+    "backgound-size : 16px 16px" +
     '"></span>';
 
 
