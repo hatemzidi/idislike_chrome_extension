@@ -23,56 +23,56 @@ var dislikehtml_comment = "<div class='comment_newsfeed' >" +
     "<i ktarget='comment' class='dislike_thumb UFICommentPhotoIcon'></i>" +
     "</div>";
 
-var dislikehtml_status = '<div class="lfloat" id="dislikeBttn"><a class="_1dsq _4_nu" '+
-	'href="#"><span class="_done _1dsr status_area dislike_thumb" ' +
+var dislikehtml_status = '<div class="lfloat" id="dislikeBttn"><a class="_1dsq _4_nu" ' +
+    'href="#"><span class="_done _1dsr status_area dislike_thumb" ' +
     'ktarget="status"></span></a></div>';
 
 
 if (window.location.hostname.indexOf("facebook") > -1) {
     // first calls
-	setTimeout(function(){
-		init();
-		findAndAddThumb();
-	}, 1000);
+    setTimeout(function () {
+        init();
+        findAndAddThumb();
+    }, 1000);
 
     i = setInterval(findAndAddThumb, 1500);
 }
 
 function init() {
-	//find chat boxes
-	//https://github.com/kapetan/jquery-observe
-	$('.fbNubGroup.videoCallEnabled')
-    .observe('childlist subtree', function(record) {
-		if ( $(record.addedNodes).is('div.fbNub') ){
-			onNewChatBox( $(record.addedNodes) );
-		}
-    });
+    //find chat boxes
+    //https://github.com/kapetan/jquery-observe
+    $('.fbNubGroup.videoCallEnabled')
+        .observe('childlist subtree', function (record) {
+            if ($(record.addedNodes).is('div.fbNub')) {
+                onNewChatBox($(record.addedNodes));
+            }
+        });
 }
 
 function findAndAddThumb() {
     var $el;
-	// --------- find comments
+    // --------- find comments
     var $commentButtons = $('.UFICommentAttachmentButtons:not(._done)');
-		
+
     $commentButtons.each(function () {
-        
-		$(this).css("width", "55px");
-		$(this).addClass('_done');
 
-		var float = direction == "rtl" ? 'left' : 'right';
-		$(this).find('.UFIPhotoAttachLinkWrapper').css('float', float);
-		
-		$el = $(dislikehtml_comment);
-		$(this).append($el);
+        var float = direction == "rtl" ? 'left' : 'right';
+        $(this).find('.UFIPhotoAttachLinkWrapper').css('float', float);
+        $(this).parents(".UFIImageBlockContent").find("textarea").addClass('fix_textarea');
+        $(this).css("width", "55px");
 
-		$el.click(injectDislike);
-          
-	});
+        $el = $(dislikehtml_comment);
+        $(this).append($el);
+        $(this).addClass('_done');
+
+        $el.click(injectDislike);
+
+    });
 
     // --------- find status boxes
     var $statusButtons = $("._52lb.lfloat");
-	$el = $(dislikehtml_status);
-	
+    $el = $(dislikehtml_status);
+
     if ($statusButtons.find("._done").length == 0) {
         $statusButtons.find("div:first:not(.lfloat)").append($el);
         $el.click(injectDislike);
@@ -80,30 +80,30 @@ function findAndAddThumb() {
 
     //find chat boxes, if they aren't yet done.
     var $emoticonsPanel = $('.emoticonsPanel').parent(':not(._done)');
-    
-	$emoticonsPanel.each(function () {
-		addThumbToChatBox($(this));
-    }); 
+
+    $emoticonsPanel.each(function () {
+        addThumbToChatBox($(this));
+    });
 }
 
-function onNewChatBox( $elem ) {
-	var $emoticonsPanel = $elem.find('.emoticonsPanel').parent(':not(._done)');
+function onNewChatBox($elem) {
+    var $emoticonsPanel = $elem.find('.emoticonsPanel').parent(':not(._done)');
 
-	if ($emoticonsPanel.length != 0) {
-		addThumbToChatBox($emoticonsPanel);
-	}
+    if ($emoticonsPanel.length != 0) {
+        addThumbToChatBox($emoticonsPanel);
+    }
 }
 
 function addThumbToChatBox($emoticonsPanel) {
-	var $el;
+    var $el;
 
-	var padding = direction == "rtl" ? "padding-left" : "padding-right";
-	$emoticonsPanel.parents(".fbNubFlyoutFooter").find('div:first').css(padding, "75px");
-   
-	$el = $(dislikehtml_chatbox);
-	$emoticonsPanel.append($el);
-	$emoticonsPanel.addClass('_done');
-	$el.click(injectDislike);
+    var padding = direction == "rtl" ? "padding-left" : "padding-right";
+    $emoticonsPanel.parents(".fbNubFlyoutFooter").find('div:first').css(padding, "75px");
+
+    $el = $(dislikehtml_chatbox);
+    $emoticonsPanel.append($el);
+    $emoticonsPanel.addClass('_done');
+    $el.click(injectDislike);
 }
 
 
