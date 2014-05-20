@@ -1,0 +1,53 @@
+/*EmojiSymbols Font (c)blockworks - Kenichi Kaneko 
+http://emojisymbols.com/ 
+*/ 
+@font-face {
+ 
+  font-family: EmojiSymbols;  
+	src: url(chrome-extension://__MSG_@@extension_id__/fonts/EmojiSymbols.woff) format(woff); 
+	text-decoration: none; 
+	font-style: normal; 
+	/* Emoji unicode blocks */ 
+	unicode-range: U1F300-1F5FF, U1F600-1F64F, U1F680-1F6FF, U2600-26FF;
+}
+
+.emj {
+  font-family: 'EmojiSymbols', Helvetica, Arial, 'lucida grande', tahoma, verdana, arial, sans-serif !important;
+  line-height: 1;
+}
+
+.dislike_thumb {
+  background-image: url(chrome-extension://__MSG_@@extension_id__/images/dislikeicon16.png ) !important;
+  background-repeat: no-repeat !important;
+  background-size: 16px 16px !important;
+  cursor: pointer;
+}
+
+.chatbox {
+  position: relative;
+  float: left;
+}
+
+.chatbox .dislike_thumb {
+  background-position: center center;
+  display: block;
+  height: 28px;
+  width: 26px;
+}
+
+.comment_newsfeed {
+  bottom: 0;
+  top: 0;
+  position: absolute;
+}
+
+.comment_newsfeed .dislike_thumb {
+  background-position: 0 0;
+  display: block;
+  height: 21px;
+  width: 16px;
+}
+
+.status_area.dislike_thumb {
+  background-position: center center !important;
+} 
