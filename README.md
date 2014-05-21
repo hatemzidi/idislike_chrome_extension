@@ -22,19 +22,19 @@ just install it, and disapprove that status, image or comment ! ;)
 
 changelog
 ---------
-v 0.6, 0.6.1
+v 0.6.x
 - YES! added support for chatbox.. finally!
 - refactoring and cleaning up code
 - fixed broken "add photo" button on comments
 - fixed flashing thumb on the status area
 
-v 0.5, 0.5.1, 0.5.2
+v 0.5.x
 - big refactoring
 - more stable !!
 - added a real thumb down instead of that ugly square
 - fix some css for more platforms
 
-v 0.3, 0.3.1, 0.3.2
+v 0.3.x
 - supporting more text fields
 - css fixing
 
