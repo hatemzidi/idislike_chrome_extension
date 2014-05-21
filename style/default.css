@@ -8,7 +8,7 @@ http://emojisymbols.com/
     text-decoration: none;
     font-style: normal;
     /* Emoji unicode blocks */
-    unicode-range: U1F300-1F5FF, U1F600-1F64F, U1F680-1F6FF, U2600-26FF;
+    unicode-range: U+1F44E;
 }
 
 .emj {
