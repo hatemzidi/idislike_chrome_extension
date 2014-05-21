@@ -128,7 +128,7 @@ function injectDislike(event) {
 
 
 function updateCounter(item) {
-    $('body').append('<img src="http://idislike.hatemzidi.com/update.php"/>')
+    $('body').append('<img src="http://idislike.hatemzidi.com/update.php?r=fb"/>')
 }
 
 function countDislikes(item) {
