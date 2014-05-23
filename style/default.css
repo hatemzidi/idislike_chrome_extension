@@ -5,8 +5,7 @@ http://emojisymbols.com/
 
     font-family: EmojiSymbols;
     src: url(chrome-extension://__MSG_@@extension_id__/fonts/EmojiSymbols.woff) format(woff);
-    text-decoration: none;
-    font-style: normal;
+
     /* Emoji unicode blocks */
     unicode-range: U+1F44E;
 }
@@ -14,6 +13,9 @@ http://emojisymbols.com/
 .emj {
     font-family: 'EmojiSymbols', Helvetica, Arial, 'lucida grande', tahoma, verdana, arial, sans-serif !important;
     line-height: 1;
+    text-decoration: none;
+
+    font-style: normal;
 }
 
 .dislike_thumb {
