@@ -18,10 +18,18 @@ http://emojisymbols.com/
     font-style: normal;
 }
 
-.dislike_thumb {
+.thumb16 {
     background-image: url(chrome-extension://__MSG_@@extension_id__/images/dislikeicon16.png) !important;
-    background-repeat: no-repeat !important;
     background-size: 16px 16px !important;
+}
+
+.thumb12 {
+    background-image: url(chrome-extension://__MSG_@@extension_id__/images/dislikeicon14x12.png) !important;
+    background-size: 14px 12px !important;
+}
+
+.dislike_thumb {
+    background-repeat: no-repeat !important;
     cursor: pointer;
 }
 
@@ -38,16 +46,14 @@ http://emojisymbols.com/
 }
 
 .comment_newsfeed {
-    bottom: 0;
-    top: 0;
-    position: absolute;
+    position: relative;
+    float: right;;
 }
 
 .comment_newsfeed .dislike_thumb {
-    background-position: 0 0;
+    height: 12px;
+    width: 14px;
     display: block;
-    height: 21px;
-    width: 16px;
 }
 
 .status_area.dislike_thumb {
@@ -58,4 +64,27 @@ http://emojisymbols.com/
     width: -webkit-calc(100% - 20px) !important;
     width: -moz-calc(100% - 20px) !important;
     width: calc(100% - 20px) !important;
+}
+
+
+
+/*rewriting facebook css*/
+.UFICommentPhotoIcon {
+    margin: 6px 4px !important;
+}
+
+._5vsj .UFICommentPhotoIcon {
+    margin: 10px 5px !important;
+}
+
+._4lh .timelineUnitContainer .UFICommentPhotoIcon {
+    margin: 10px 10px 10px 0px !important;
+}
+
+._5vsj .UFIReplyList .UFIAddComment .UFICommentPhotoIcon {
+    margin: 4px 5px !important;
+}
+
+body ._icv ._3qig .uiButtonText {
+    max-width: 80px;
 }

@@ -16,17 +16,19 @@ var myid = chrome.i18n.getMessage("@@extension_id");
 var direction = $('body').css('direction');
 
 var dislikehtml_chatbox = "<div class='chatbox' >" +
-    "<i class='dislike_thumb' ktarget='chatbox'></i>" +
+    "<i class='dislike_thumb thumb16' ktarget='chatbox'></i>" +
     "</div>";
 
 var dislikehtml_comment = "<div class='comment_newsfeed' >" +
-    "<i ktarget='comment' class='dislike_thumb UFICommentPhotoIcon'></i>" +
+    "<i ktarget='comment' class='dislike_thumb thumb12 UFICommentPhotoIcon'></i>" +
     "</div>";
 
 var dislikehtml_status = '<div class="lfloat" id="dislikeBttn"><a class="_1dsq _4_nu" ' +
-    'href="#"><span class="_done _1dsr status_area dislike_thumb" ' +
+    'href="#"><span class="_done _1dsr status_area thumb16 dislike_thumb" ' +
     'ktarget="status"></span></a></div>';
 
+var dislikehtml_infobox = '<span> · <a class="UFIDisLikeLink" href="#" ' +
+    'role="button" title="DisLike this">Dislike</a></span>';
 
 if (window.location.hostname.indexOf("facebook") > -1) {
     // first calls
@@ -50,16 +52,20 @@ function init() {
 }
 
 function findAndAddThumb() {
-    var $el;
+    var $el, $link, $infoBlock;
     // --------- find comments
     var $commentButtons = $('.UFICommentAttachmentButtons:not(._done)');
 
     $commentButtons.each(function () {
 
         var float = direction == "rtl" ? 'left' : 'right';
-        $(this).find('.UFIPhotoAttachLinkWrapper').css('float', float);
+        var $camera = $(this).find('.UFIPhotoAttachLinkWrapper');
+
+        if ( $camera.length) {
+            $camera.css('float', float);
+        }
+
         $(this).parents(".UFIImageBlockContent").find("textarea").addClass('fix_textarea');
-        $(this).css("width", "55px");
 
         $el = $(dislikehtml_comment);
         $(this).append($el);
@@ -71,12 +77,19 @@ function findAndAddThumb() {
 
     // --------- find status boxes
     var $statusButtons = $("._52lb.lfloat");
-    $el = $(dislikehtml_status);
+    var $el;
 
-    if ($statusButtons.find("._done").length == 0) {
-        $statusButtons.find("div:first:not(.lfloat)").append($el);
-        $el.click(injectDislike);
-    }
+    $statusButtons.each(function () {
+        $el = $(dislikehtml_status);
+        if ($(this).find("._done").length == 0) {
+            if ($(this).hasClass('_3-7')) {
+                $(this).find("div:first:not(.lfloat)").append($el);
+            } else {
+                $(this).append($el);
+            }
+            $el.click(injectDislike);
+        }
+    });
 
     //find chat boxes, if they aren't yet done.
     var $emoticonsPanel = $('.emoticonsPanel').parent(':not(._done)');

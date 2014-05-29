@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Dislike button for Facebook",
-    "version": "0.6.2",
+    "version": "0.6.4",
     "background": {
       "page": "background.html"
    },
@@ -11,11 +11,11 @@
       "js": [ "js/jquery.min.js", "js/jquery.observe.min.js", "js/jquery.caret.min.js", "js/dislike.js" ],
 	  "css" : ["style/default.css"],
       "matches": [ "http://*/*", "https://*/*" ],
-	  "run_at": "document_end"
+	  "run_at": "document_start"
       }
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-    "description": "Dislike button for Facebook",
+    "description": "Dislike button for Facebook for is the must have chrome extension. You can dislike post statuses & links, comment and more!",
     "homepage_url": "http://idislike.hatemzidi.com/",
     "icons": {
       "128": "icons/icon128.png",
