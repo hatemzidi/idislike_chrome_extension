@@ -128,7 +128,12 @@ function injectDislike(event) {
     if (type == "status") {
         $active_textarea = $(".composerTypeahead").find("textarea");
     } else if (type == "chatbox") {
+        // chatbox
         $active_textarea = target.parents(".fbNubFlyoutFooter").find("textarea");
+        if (!$active_textarea.length){
+            // messages page
+            $active_textarea = target.parents("div._2ak").find("textarea");
+        }
     } else {
         $active_textarea = target.parents(".UFIImageBlockContent").find("textarea");
     }

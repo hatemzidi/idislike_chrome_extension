@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Dislike button for Facebook",
     "short_name": "Dislike button",
-    "version": "0.6.4",
+    "version": "0.6.5",
     "background": {
         "page": "background.html"
     },
@@ -11,18 +11,18 @@
             "all_frames": true,
             "js": [ "js/jquery.min.js", "js/jquery.observe.min.js", "js/jquery.caret.min.js", "js/dislike.js" ],
             "css": ["style/default.css"],
-            "matches": [ "http://*/*", "https://*/*" ],
+            "matches": [ "http://*.facebook.com/*", "https://*.facebook.com/*" ],
             "run_at": "document_start"
         }
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
-    "description": "Dislike button for Facebook for is the must have chrome extension. You can dislike post statuses & links, comment and more!",
+    "description": "Dislike button for Facebook is the must have chrome extension. You can dislike post statuses & links, comment and more!",
     "homepage_url": "http://idislike.hatemzidi.com/",
     "icons": {
         "128": "icons/icon128.png",
         "16": "icons/icon16.png",
         "48": "icons/icon48.png"
     },
-    "permissions": [ "tabs", "http://*/*", "https://*/*", "contextMenus", "webNavigation", "notifications", "cookies", "webRequest" ],
+    "permissions": [ "http://*.hatemzidi.com/*", "https://*.hatemzidi.com/*" ],
     "web_accessible_resources": [ "js/*", "images/*", "style/*", "fonts/*" ]
 }
