@@ -115,7 +115,7 @@ function addThumbToChatBox($emoticonsPanel) {
 
     $el = $(dislikehtml_chatbox);
     $emoticonsPanel.append($el);
-    $emoticonsPanel.addClass('_done').css('width','75px');
+    $emoticonsPanel.addClass('_done');
     $el.click(injectDislike);
 }
 
