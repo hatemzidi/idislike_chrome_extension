@@ -1,10 +1,3 @@
-// ==UserScript==
-// @name DislikeBtn
-// @include http://*
-// @include https://*
-// ==/UserScript==
-
-
 /*
  👎
  THUMBS DOWN SIGN
@@ -15,140 +8,129 @@ var myid = chrome.i18n.getMessage("@@extension_id");
 // well ... just fixing the rtl pages (arabic, hebrew ... whatever from right to left)
 var direction = $('body').css('direction');
 
-var dislikehtml_chatbox = "<div class='chatbox' >" +
-    "<i class='dislike_thumb thumb16' ktarget='chatbox'></i>" +
-    "</div>";
+function iDislike() {
 
-var dislikehtml_comment = "<div class='comment_newsfeed' >" +
-    "<i ktarget='comment' class='dislike_thumb thumb12 UFICommentPhotoIcon'></i>" +
-    "</div>";
+    var dslkr = this;
+    var dslkrId = 0;
 
-var dislikehtml_status = '<div class="lfloat" id="dislikeBttn"><a class="_1dsq _4_nu" ' +
-    'href="#"><span class="_done _1dsr status_area thumb16 dislike_thumb" ' +
-    'ktarget="status"></span></a></div>';
+    this.addThumb = function () {
 
-var dislikehtml_infobox = '<span> · <a class="UFIDisLikeLink" href="#" ' +
-    'role="button" title="DisLike this">Dislike</a></span>';
+        $('textarea[name="add_comment_text_text"],' +
+            '.shareInput, ' +
+            'textarea[name="add_comment_text"],' +
+            'textarea[name="xhpc_message_text"], ' +
+            'textarea[name="xhpc_message"], ' +
+            '.UFIAddCommentInput'
+        ).not('[data-dslkr-status]').each(function () {
+                $(this).attr('data-dslkr-status', 1);
 
-if (window.location.hostname.indexOf("facebook") > -1) {
-    // first calls
-    setTimeout(function () {
-        init();
-        findAndAddThumb();
-    }, 1000);
+                var inputContainer = $(this).parents('.UFIInputContainer');
 
-    i = setInterval(findAndAddThumb, 1500);
-}
+                if ($(inputContainer).length === 0) {
+                    inputContainer = $(this).parent();
+                }
 
-function init() {
-    //find chat boxes
-    //https://github.com/kapetan/jquery-observe
-    $('.fbNubGroup.videoCallEnabled')
-        .observe('childlist subtree', function (record) {
-            if ($(record.addedNodes).is('div.fbNub')) {
-                onNewChatBox($(record.addedNodes));
-            }
+                /*if ($('.mogToggler', inputContainer).length > 0 || $('.UFICommentStickerButton', inputContainer).length > 0) {
+                 // Here is Facebook toggler
+                 return;
+                 }*/
+
+                var $dslkrBttn = $('<div class="dslkr_container" aria-label="dslkr">' +
+                '<i class="dislike_thumb thumb16"></i>' +
+                '</div>');
+
+                $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
+                $(inputContainer).css('position', 'relative');
+
+
+                if ($(this).hasClass('UFIAddCommentInput')) {
+                    $dslkrBttn.css('margin-bottom', $(this).css('padding-bottom'));
+                }
+
+                $(inputContainer).append($dslkrBttn);
+                $dslkrBttn.on('click', dslkr.insertEmoticon);
+            });
+
+        //find chat boxes, if they aren't yet done.
+        var $emoticonsPanel = $('.emoticonsPanel').parent(':not([data-dslkr-status])');
+
+        $emoticonsPanel.each(function () {
+            dslkr.addThumbToChatBox($(this));
         });
-}
+    };
 
-function findAndAddThumb() {
-    var $el, $link, $infoBlock;
-    // --------- find comments
-    var $commentButtons = $('.UFICommentAttachmentButtons:not(._done)');
 
-    $commentButtons.each(function () {
+    this.addThumbToChatBox = function ($emoticonPanel) {
+        var $dslkrBttn;
 
-        var float = direction == "rtl" ? 'left' : 'right';
-        var $camera = $(this).find('.UFIPhotoAttachLinkWrapper');
+        var padding = direction == "rtl" ? "padding-left" : "padding-right";
+        $emoticonPanel.parents(".fbNubFlyoutFooter").find('div:first').css(padding, "75px");
 
-        if ( $camera.length) {
-            $camera.css('float', float);
+        $dslkrBttn = $("<div class='chatbox' >" +
+        "<i class='dislike_thumb thumb16' ktarget='chatbox'></i>" +
+        "</div>");
+
+        $emoticonPanel.append($dslkrBttn);
+        $dslkrBttn.on('click', dslkr.insertEmoticon);
+        $emoticonPanel.attr('data-dslkr-status', 1);
+    };
+
+    this.insertEmoticon = function (e) {
+        var textInput = dslkr.findTextInput(e.target);
+
+        textInput.focus();
+
+        var ev = document.createEvent('TextEvent');
+        ev.initTextEvent('textInput', true, true, null, ' \uD83D\uDC4E ', 9, 'en-US');
+
+        setTimeout(function () {
+            textInput.dispatchEvent(ev);
+        }, 55);
+    };
+
+    this.findTextInput = function (dslkrEl) {
+        var $inputEl, wrapperEl;
+        var positioner = $(dslkrEl).parents('[data-ownerid]');
+
+
+        if ($(positioner).length > 0) {
+            var ownerid = $(positioner).data('ownerid');
+            wrapperEl = $('#' + ownerid).parent();
+        }
+        else {
+            wrapperEl = $(dslkrEl).parent();
         }
 
-        $(this).parents(".UFIImageBlockContent").find("textarea").addClass('fix_textarea');
+        // Search for wrapper
+        while (wrapperEl && wrapperEl !== document) {
 
-        $el = $(dislikehtml_comment);
-        $(this).append($el);
-        $(this).addClass('_done');
+            var commInput = $('.UFIAddCommentInput', wrapperEl).not('[data-fse-clicked]');
 
-        $el.click(injectDislike);
-
-    });
-
-    // --------- find status boxes
-    var $statusButtons = $("._52lb.lfloat");
-    var $el;
-
-    $statusButtons.each(function () {
-        $el = $(dislikehtml_status);
-        if ($(this).find("._done").length == 0) {
-            if ($(this).hasClass('_3-7')) {
-                $(this).find("div:first:not(.lfloat)").append($el);
-            } else {
-                $(this).append($el);
+            if ($(commInput).length > 0) {
+                // Trigger click on '.UFIAddCommentInput' to enable [contenteditable]
+                $(commInput).click();
+                $(commInput).attr('data-fse-clicked', 1);
             }
-            $el.click(injectDislike);
+
+            if ($('textarea', wrapperEl).length > 0) {
+                $inputEl = $('textarea', wrapperEl)[0];
+                break;
+            }
+
+            if ($('div[contenteditable]', wrapperEl).length > 0) {
+                $inputEl = $('div[contenteditable]', wrapperEl)[0];
+                break;
+            }
+
+            if ($('.UFICommentContainer', wrapperEl).length > 0) {
+                break; // Can't find text input
+            }
+
+            wrapperEl = $(wrapperEl).parent();
         }
-    });
 
-    //find chat boxes, if they aren't yet done.
-    var $emoticonsPanel = $('.emoticonsPanel').parent(':not(._done)');
-
-    $emoticonsPanel.each(function () {
-        addThumbToChatBox($(this));
-    });
-}
-
-function onNewChatBox($elem) {
-    var $emoticonsPanel = $elem.find('.emoticonsPanel').parent(':not(._done)');
-
-    if ($emoticonsPanel.length != 0) {
-        addThumbToChatBox($emoticonsPanel);
-    }
-}
-
-function addThumbToChatBox($emoticonsPanel) {
-    var $el;
-
-    var padding = direction == "rtl" ? "padding-left" : "padding-right";
-    $emoticonsPanel.parents(".fbNubFlyoutFooter").find('div:first').css(padding, "75px");
-
-    $el = $(dislikehtml_chatbox);
-    $emoticonsPanel.append($el);
-    $emoticonsPanel.addClass('_done');
-    $el.click(injectDislike);
-}
+        return $inputEl;
+    };
 
 
-function injectDislike(event) {
-    var $active_textarea;
-    var target = $(event.target);
-    var type = target.attr("ktarget");
-
-    if (type == "status") {
-        $active_textarea = $(".composerTypeahead").find("textarea");
-    } else if (type == "chatbox") {
-        // chatbox
-        $active_textarea = target.parents(".fbNubFlyoutFooter").find("textarea");
-        if (!$active_textarea.length){
-            // messages page
-            $active_textarea = target.parents("div._2ak").find("textarea");
-        }
-    } else {
-        $active_textarea = target.parents(".UFIImageBlockContent").find("textarea");
-    }
-
-    $active_textarea.focus();
-    $active_textarea.addClass('emj'); // apply the emoji police
-    $active_textarea.insertAtCaret(' \uD83D\uDC4E ');
-    updateCounter();
-}
-
-
-function updateCounter(item) {
-    $('body').append('<img src="http://idislike.hatemzidi.com/update.php?r=fb"/>')
-}
-
-function countDislikes(item) {
-//TODO
 }

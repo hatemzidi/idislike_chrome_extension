@@ -97,3 +97,26 @@ html.celery-facebook-tab ._2nb ._1s5 {
 body ._icv ._3qig .uiButtonText {
     max-width: 80px;
 }
+
+
+/* -------------- */
+.dslkr_container {
+    display: block;
+    width: 18px;
+    height: 22px;
+    cursor: pointer;
+    position: absolute;
+    z-index: 99;
+    right: 1px;
+    bottom: 0;
+    margin-right: 2px;
+    background: url('chrome-extension://__MSG_@@extension_id__/images/dislikeicon16.png') no-repeat 1px 6px;
+}
+
+.UFICommentAttachmentButtons {
+    padding-right: 19px !important;
+}
+
+.UFIAddCommentInput ._5yw9 {
+    width: 357px !important;
+}

@@ -9,7 +9,11 @@
     "content_scripts": [
         {
             "all_frames": true,
-            "js": [ "js/jquery.min.js", "js/jquery.observe.min.js", "js/jquery.caret.min.js", "js/dislike.js" ],
+            "js": [
+                "js/lib/jquery.min.js",
+                "js/dislike.js",
+                "js/controller.js"
+            ],
             "css": ["style/default.css"],
             "matches": [ "http://*.facebook.com/*", "https://*.facebook.com/*" ],
             "run_at": "document_start"
