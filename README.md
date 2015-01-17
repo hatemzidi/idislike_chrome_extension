@@ -16,12 +16,18 @@ just install it, and disapprove that status, image or comment ! ;)
   +  on comments
   +  on any status updates
   +  on pages
-  +  on groupes
+  +  on groups
   +  on photos and albums
 
 
 changelog
 ---------
+
+v 0.7
+- YEAH! we fixed the dislike button for the facebook's design for 2014
+- complete rewrite while covering all facebook input fields
+- better performance and visual integration
+
 v 0.6.x
 - YES! added support for chatbox.. finally!
 - refactoring and cleaning up code
