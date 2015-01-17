@@ -67,7 +67,7 @@ function iDislike() {
         $emoticonPanel.parents(".fbNubFlyoutFooter").find('div:first').css(padding, "75px");
 
         $dslkrBttn = $("<div class='chatbox' >" +
-        "<i class='dislike_thumb thumb16' ktarget='chatbox'></i>" +
+        "<i class='dislike_thumb thumb16'></i>" +
         "</div>");
 
         $emoticonPanel.append($dslkrBttn);
@@ -104,16 +104,18 @@ function iDislike() {
         // Search for wrapper
         while (wrapperEl && wrapperEl !== document) {
 
-            var commInput = $('.UFIAddCommentInput', wrapperEl).not('[data-fse-clicked]');
+            var commInput = $('.UFIAddCommentInput', wrapperEl).not('[data-dslkr-clicked]');
 
             if ($(commInput).length > 0) {
                 // Trigger click on '.UFIAddCommentInput' to enable [contenteditable]
                 $(commInput).click();
-                $(commInput).attr('data-fse-clicked', 1);
+                $(commInput).attr('data-dslkr-clicked', 1);
+                $('.UFIAddCommentInput', wrapperEl).addClass('emj'); // apply the emoji police
             }
 
             if ($('textarea', wrapperEl).length > 0) {
                 $inputEl = $('textarea', wrapperEl)[0];
+                $($inputEl).addClass('emj'); // apply the emoji police
                 break;
             }
 
