@@ -24,7 +24,7 @@ changelog
 ---------
 
 v 0.7
-- YEAH! we fixed the dislike button for the facebook's design for 2014
+- YEAH! we fixed the dislike button to work properly on the facebook's design for 2014
 - complete rewrite while covering all facebook input fields
 - better performance and visual integration
 
