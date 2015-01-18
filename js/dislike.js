@@ -5,13 +5,13 @@
  */
 
 var myid = chrome.i18n.getMessage("@@extension_id");
-// well ... just fixing the rtl pages (arabic, hebrew ... whatever from right to left)
-var direction = $('body').css('direction');
+
 
 function iDislike() {
 
-    var dslkr = this;
+    var me = this;
     var dslkrId = 0;
+    //var direction = $('body').attr('dir');
 
     this.addThumb = function () {
 
@@ -22,6 +22,7 @@ function iDislike() {
             'textarea[name="xhpc_message"], ' +
             '.UFIAddCommentInput'
         ).not('[data-dslkr-status]').each(function () {
+                // mark as visited
                 $(this).attr('data-dslkr-status', 1);
 
                 var inputContainer = $(this).parents('.UFIInputContainer');
@@ -35,12 +36,14 @@ function iDislike() {
                  return;
                  }*/
 
-                var $dslkrBttn = $('<div class="dslkr_container" aria-label="dslkr">' +
+                var $dslkrBttn = $('<div class="dslkr_container" ' +
+                'aria-label="Dislike" data-hover="tooltip" data-tooltip-alignh="center"' + //tooltip
+                '>' +
                 '<i class="dislike_thumb thumb16"></i>' +
                 '</div>');
 
                 $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
-                $(inputContainer).css('position', 'relative');
+                //$(inputContainer).css('position', 'relative');
 
 
                 if ($(this).hasClass('UFIAddCommentInput')) {
@@ -48,40 +51,47 @@ function iDislike() {
                 }
 
                 $(inputContainer).append($dslkrBttn);
-                $dslkrBttn.on('click', dslkr.insertEmoticon);
+                $dslkrBttn.on('click', me.insertEmoticon);
             });
 
         //find chat boxes, if they aren't yet done.
         var $emoticonsPanel = $('.emoticonsPanel').parent(':not([data-dslkr-status])');
 
         $emoticonsPanel.each(function () {
-            dslkr.addThumbToChatBox($(this));
+            me.addThumbToChatBox($(this));
         });
     };
 
 
     this.addThumbToChatBox = function ($emoticonPanel) {
         var $dslkrBttn;
+        // well ... just fixing the rtl pages (arabic, hebrew ... whatever from right to left)
+        var direction = $('body').attr('dir');
 
         var padding = direction == "rtl" ? "padding-left" : "padding-right";
         $emoticonPanel.parents(".fbNubFlyoutFooter").find('div:first').css(padding, "75px");
 
-        $dslkrBttn = $("<div class='chatbox' >" +
-        "<i class='dislike_thumb thumb16'></i>" +
-        "</div>");
+        $dslkrBttn = $('<div class="chatbox" ' +
+        'aria-label="Dislike" data-hover="tooltip" data-tooltip-alignh="center"' + //tooltip
+        '>' +
+        '<i class="dislike_thumb thumb16"></i>' +
+        '</div>');
+        $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
 
         $emoticonPanel.append($dslkrBttn);
-        $dslkrBttn.on('click', dslkr.insertEmoticon);
+        $dslkrBttn.on('click', me.insertEmoticon);
         $emoticonPanel.attr('data-dslkr-status', 1);
     };
 
     this.insertEmoticon = function (e) {
-        var textInput = dslkr.findTextInput(e.target);
+        var textInput = me.findTextInput(e.target);
 
         textInput.focus();
 
         var ev = document.createEvent('TextEvent');
         ev.initTextEvent('textInput', true, true, null, ' \uD83D\uDC4E ', 9, 'en-US');
+
+        me.updateCounter();
 
         setTimeout(function () {
             textInput.dispatchEvent(ev);
@@ -90,16 +100,17 @@ function iDislike() {
 
     this.findTextInput = function (dslkrEl) {
         var $inputEl, wrapperEl;
-        var positioner = $(dslkrEl).parents('[data-ownerid]');
+
+        /*var positioner = $(dslkrEl).parents('[data-ownerid]');
 
 
         if ($(positioner).length > 0) {
             var ownerid = $(positioner).data('ownerid');
             wrapperEl = $('#' + ownerid).parent();
         }
-        else {
+        else {*/
             wrapperEl = $(dslkrEl).parent();
-        }
+        //}
 
         // Search for wrapper
         while (wrapperEl && wrapperEl !== document) {
@@ -134,5 +145,8 @@ function iDislike() {
         return $inputEl;
     };
 
+    this.updateCounter = function(item) {
+        $('body').append('<img src="http://idislike.hatemzidi.com/update.php?r=fb"/>')
+    };
 
 }

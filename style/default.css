@@ -18,16 +18,18 @@ http://emojisymbols.com/
 }
 
 .dslkr_container {
-    display: block;
+    /*display: block;*/
     width: 18px;
     height: 22px;
     cursor: pointer;
     position: absolute;
     z-index: 99;
     right: 1px;
-    bottom: 0;
     margin-right: 2px;
+    bottom: 0;
 }
+
+
 
 .thumb16 {
     background-image: url(chrome-extension://__MSG_@@extension_id__/images/dislikeicon16.png) !important;
@@ -122,5 +124,24 @@ body ._icv ._3qig .uiButtonText {
 }
 
 .UFIAddCommentInput ._5yw9 {
-    width: 357px !important;
+    padding-right: 16px;
+}
+
+/* ----- RTL ---- */
+
+body[dir='rtl'] .dslkr_container {
+    right: auto;
+    left: 1px;
+    margin-right: 0;
+    margin-left: 2px;
+}
+
+body[dir="rtl"] .UFICommentAttachmentButtons{
+    padding-right: 0px !important;
+    padding-left: 19px !important;
+}
+
+body[dir="rtl"] .UFIAddCommentInput ._5yw9 {
+   padding-left: 16px;
+   padding-right: 0 !important;
 }
