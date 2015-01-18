@@ -23,7 +23,7 @@ just install it, and disapprove that status, image or comment ! ;)
 changelog
 ---------
 
-v 0.7
+v 0.7.x
 - YEAH! we fixed the dislike button to work properly on the facebook's design for 2014
 - complete rewrite while covering all facebook input fields
 - better performance and visual integration
