@@ -29,8 +29,6 @@ http://emojisymbols.com/
     bottom: 0;
 }
 
-
-
 .thumb16 {
     background-image: url(chrome-extension://__MSG_@@extension_id__/images/dislikeicon16.png) !important;
     background-size: 16px 16px !important;
@@ -47,10 +45,10 @@ http://emojisymbols.com/
 }
 
 .dslkr_container .dislike_thumb {
+    background-position: 1px 6px;
     display: block;
     width: 18px ;
     height: 22px;
-    background-position: 1px 6px;
 }
 
 
@@ -88,8 +86,9 @@ http://emojisymbols.com/
 }
 
 
-
-/*rewriting facebook css*/
+/*
+    rewriting facebook's css
+*/
 .UFICommentPhotoIcon {
     margin: 6px 4px !important;
 }
@@ -99,7 +98,7 @@ http://emojisymbols.com/
 }
 
 ._4lh .timelineUnitContainer .UFICommentPhotoIcon {
-    margin: 10px 10px 10px 0px !important;
+    margin: 10px 10px 10px 0 !important;
 }
 
 ._5vsj .UFIReplyList .UFIAddComment .UFICommentPhotoIcon {
@@ -120,14 +119,20 @@ body ._icv ._3qig .uiButtonText {
 }
 
 .UFICommentAttachmentButtons {
-    padding-right: 19px !important;
+    padding-right: 24px !important;
 }
 
 .UFIAddCommentInput ._5yw9 {
-    padding-right: 16px;
+    padding-right: 22px;
 }
 
-/* ----- RTL ---- */
+.fbNubFlyoutFooter > div:first-child {
+    padding-right: 75px;
+}
+
+/* ----- RTL ----
+    well ... just fixing the rtl pages (arabic, hebrew ... whatever from right to left)
+*/
 
 body[dir='rtl'] .dslkr_container {
     right: auto;
@@ -137,11 +142,16 @@ body[dir='rtl'] .dslkr_container {
 }
 
 body[dir="rtl"] .UFICommentAttachmentButtons{
-    padding-right: 0px !important;
-    padding-left: 19px !important;
+    padding-right: 0 !important;
+    padding-left: 24px !important;
 }
 
 body[dir="rtl"] .UFIAddCommentInput ._5yw9 {
-   padding-left: 16px;
+   padding-left: 24px;
    padding-right: 0 !important;
+}
+
+body[dir="rtl"] .fbNubFlyoutFooter > div:first-child {
+    padding-left: 75px;
+    padding-right: 0 !important;
 }

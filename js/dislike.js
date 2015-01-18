@@ -11,10 +11,10 @@ function iDislike() {
 
     var me = this;
     var dslkrId = 0;
-    //var direction = $('body').attr('dir');
 
     this.addThumb = function () {
 
+        //find input fields, if they aren't yet done.
         $('textarea[name="add_comment_text_text"],' +
             '.shareInput, ' +
             'textarea[name="add_comment_text"],' +
@@ -31,11 +31,6 @@ function iDislike() {
                     inputContainer = $(this).parent();
                 }
 
-                /*if ($('.mogToggler', inputContainer).length > 0 || $('.UFICommentStickerButton', inputContainer).length > 0) {
-                 // Here is Facebook toggler
-                 return;
-                 }*/
-
                 var $dslkrBttn = $('<div class="dslkr_container" ' +
                 'aria-label="Dislike" data-hover="tooltip" data-tooltip-alignh="center"' + //tooltip
                 '>' +
@@ -43,7 +38,6 @@ function iDislike() {
                 '</div>');
 
                 $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
-                //$(inputContainer).css('position', 'relative');
 
 
                 if ($(this).hasClass('UFIAddCommentInput')) {
@@ -65,17 +59,13 @@ function iDislike() {
 
     this.addThumbToChatBox = function ($emoticonPanel) {
         var $dslkrBttn;
-        // well ... just fixing the rtl pages (arabic, hebrew ... whatever from right to left)
-        var direction = $('body').attr('dir');
-
-        var padding = direction == "rtl" ? "padding-left" : "padding-right";
-        $emoticonPanel.parents(".fbNubFlyoutFooter").find('div:first').css(padding, "75px");
 
         $dslkrBttn = $('<div class="chatbox" ' +
         'aria-label="Dislike" data-hover="tooltip" data-tooltip-alignh="center"' + //tooltip
         '>' +
         '<i class="dislike_thumb thumb16"></i>' +
         '</div>');
+
         $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
 
         $emoticonPanel.append($dslkrBttn);
@@ -84,9 +74,9 @@ function iDislike() {
     };
 
     this.insertEmoticon = function (e) {
-        var textInput = me.findTextInput(e.target);
+        var inputField = me.findInputField(e.target);
 
-        textInput.focus();
+        inputField.focus();
 
         var ev = document.createEvent('TextEvent');
         ev.initTextEvent('textInput', true, true, null, ' \uD83D\uDC4E ', 9, 'en-US');
@@ -94,22 +84,22 @@ function iDislike() {
         me.updateCounter();
 
         setTimeout(function () {
-            textInput.dispatchEvent(ev);
+            inputField.dispatchEvent(ev);
         }, 55);
     };
 
-    this.findTextInput = function (dslkrEl) {
+    this.findInputField = function (dslkrEl) {
         var $inputEl, wrapperEl;
 
         /*var positioner = $(dslkrEl).parents('[data-ownerid]');
 
 
-        if ($(positioner).length > 0) {
-            var ownerid = $(positioner).data('ownerid');
-            wrapperEl = $('#' + ownerid).parent();
-        }
-        else {*/
-            wrapperEl = $(dslkrEl).parent();
+         if ($(positioner).length > 0) {
+         var ownerid = $(positioner).data('ownerid');
+         wrapperEl = $('#' + ownerid).parent();
+         }
+         else {*/
+        wrapperEl = $(dslkrEl).parent();
         //}
 
         // Search for wrapper
@@ -145,7 +135,9 @@ function iDislike() {
         return $inputEl;
     };
 
-    this.updateCounter = function(item) {
+    // this is just a counter, no data are stored
+    this.updateCounter = function (item) {
+        // item may be used to distinguish between types : chatbox, status, comments ....
         $('body').append('<img src="http://idislike.hatemzidi.com/update.php?r=fb"/>')
     };
 
