@@ -106,7 +106,7 @@ http://emojisymbols.com/
 }
 
 .fbNubFlyout .fbNubFlyoutFooter ._552n {
-    width : 77px;
+    width : 101px;
 }
 
 html.celery-facebook-tab ._2nb ._1s5 {
@@ -127,7 +127,7 @@ body ._icv ._3qig .uiButtonText {
 }
 
 .fbNubFlyoutFooter > div:first-child {
-    padding-right: 75px;
+    padding-right: 96px;
 }
 
 /* ----- RTL ----
@@ -152,6 +152,6 @@ body[dir="rtl"] .UFIAddCommentInput ._5yw9 {
 }
 
 body[dir="rtl"] .fbNubFlyoutFooter > div:first-child {
-    padding-left: 75px;
+    padding-left: 96px;
     padding-right: 0 !important;
 }
