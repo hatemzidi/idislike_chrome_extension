@@ -105,9 +105,19 @@ http://emojisymbols.com/
     margin: 4px 5px !important;
 }
 
+/*
+TODO : fix this for chatbox
+
+
 .fbNubFlyout .fbNubFlyoutFooter ._552n {
     width : 101px;
 }
+
+.fbNubFlyoutFooter > div:first-child {
+    padding-right: 96px;
+}
+
+*/
 
 html.celery-facebook-tab ._2nb ._1s5 {
     left : 491px !important;
@@ -126,9 +136,7 @@ body ._icv ._3qig .uiButtonText {
     padding-right: 22px;
 }
 
-.fbNubFlyoutFooter > div:first-child {
-    padding-right: 96px;
-}
+
 
 /* ----- RTL ----
     well ... just fixing the rtl pages (arabic, hebrew ... whatever from right to left)
@@ -151,7 +159,9 @@ body[dir="rtl"] .UFIAddCommentInput ._5yw9 {
    padding-right: 0 !important;
 }
 
+/* TODO : chatbox to fix
 body[dir="rtl"] .fbNubFlyoutFooter > div:first-child {
     padding-left: 96px;
     padding-right: 0 !important;
 }
+*/

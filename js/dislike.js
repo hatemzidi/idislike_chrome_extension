@@ -49,11 +49,14 @@ function iDislike() {
             });
 
         //find chat boxes, if they aren't yet done.
+        /*
+        * TODO : fix this
         var $emoticonsPanel = $('.emoticonsPanel').parent(':not([data-dslkr-status])');
 
         $emoticonsPanel.each(function () {
             me.addThumbToChatBox($(this));
         });
+        */
     };
 
 
