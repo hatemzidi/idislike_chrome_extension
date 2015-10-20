@@ -12,8 +12,16 @@ function iDislike() {
     var me = this;
     var dslkrId = 0;
 
-    this.addThumb = function () {
+    this.addThumbs = function () {
+        me.addThumbToComments();
+        /*
+         * TODO : fix this
+         me.addThumbToChatBoxes();
+         */
 
+    };
+
+    this.addThumbToComments = function () {
         //find input fields, if they aren't yet done.
         $('textarea[name="add_comment_text_text"],' +
             '.shareInput, ' +
@@ -22,52 +30,56 @@ function iDislike() {
             'textarea[name="xhpc_message"], ' +
             '.UFIAddCommentInput'
         ).not('[data-dslkr-status]').each(function () {
-                // mark as visited
-                $(this).attr('data-dslkr-status', 1);
-
-                var inputContainer = $(this).parents('.UFIInputContainer');
-
-                if ($(inputContainer).length === 0) {
-                    inputContainer = $(this).parent();
-                }
-
-                var $dslkrBttn = $('<div class="dslkr_container" ' +
-                'aria-label="Dislike" data-hover="tooltip" data-tooltip-alignh="center"' + //tooltip
-                '>' +
-                '<i class="dislike_thumb thumb16"></i>' +
-                '</div>');
-
-                $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
-
-
-                if ($(this).hasClass('UFIAddCommentInput')) {
-                    $dslkrBttn.css('margin-bottom', $(this).css('padding-bottom'));
-                }
-
-                $(inputContainer).append($dslkrBttn);
-                $dslkrBttn.on('click', me.insertEmoticon);
+                me.addThumbToComment($(this));
             });
 
+    };
+
+    this.addThumbToComment = function ($el) {
+        // mark as visited
+        $el.attr('data-dslkr-status', 1);
+
+        var inputContainer = $el.parents('.UFIInputContainer');
+
+        if ($(inputContainer).length === 0) {
+            inputContainer = $el.parent();
+        }
+
+        var $dslkrBttn = $('<div class="dslkr_container" ' +
+            'aria-label="Dislike" data-hover="tooltip" data-tooltip-alignh="center"' + //tooltip
+            '>' +
+            '<i class="dislike_thumb thumb16"></i>' +
+            '</div>');
+
+        $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
+
+
+        if ($el.hasClass('UFIAddCommentInput')) {
+            $dslkrBttn.css('margin-bottom', $el.css('padding-bottom'));
+        }
+
+        $(inputContainer).append($dslkrBttn);
+        $dslkrBttn.on('click', me.insertEmoticon);
+    };
+
+
+    this.addThumbToChatBoxes = function () {
         //find chat boxes, if they aren't yet done.
-        /*
-        * TODO : fix this
         var $emoticonsPanel = $('.emoticonsPanel').parent(':not([data-dslkr-status])');
 
         $emoticonsPanel.each(function () {
             me.addThumbToChatBox($(this));
         });
-        */
     };
-
 
     this.addThumbToChatBox = function ($emoticonPanel) {
         var $dslkrBttn;
 
         $dslkrBttn = $('<div class="chatbox" ' +
-        'aria-label="Dislike" data-hover="tooltip" data-tooltip-alignh="center"' + //tooltip
-        '>' +
-        '<i class="dislike_thumb thumb16"></i>' +
-        '</div>');
+            'aria-label="Dislike" data-hover="tooltip" data-tooltip-alignh="center"' + //tooltip
+            '>' +
+            '<i class="dislike_thumb thumb16"></i>' +
+            '</div>');
 
         $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
 
@@ -94,16 +106,7 @@ function iDislike() {
     this.findInputField = function (dslkrEl) {
         var $inputEl, wrapperEl;
 
-        /*var positioner = $(dslkrEl).parents('[data-ownerid]');
-
-
-         if ($(positioner).length > 0) {
-         var ownerid = $(positioner).data('ownerid');
-         wrapperEl = $('#' + ownerid).parent();
-         }
-         else {*/
         wrapperEl = $(dslkrEl).parent();
-        //}
 
         // Search for wrapper
         while (wrapperEl && wrapperEl !== document) {
@@ -114,12 +117,13 @@ function iDislike() {
                 // Trigger click on '.UFIAddCommentInput' to enable [contenteditable]
                 $(commInput).click();
                 $(commInput).attr('data-dslkr-clicked', 1);
-                $('.UFIAddCommentInput', wrapperEl).addClass('emj'); // apply the emoji police
-            }
+                $('.UFIAddCommentInput', wrapperEl).addClass('emj'); // apply the emoji police 
+            }                                                        //todo : apply only with old browsers
 
             if ($('textarea', wrapperEl).length > 0) {
                 $inputEl = $('textarea', wrapperEl)[0];
                 $($inputEl).addClass('emj'); // apply the emoji police
+                                             //todo : apply only with old browsers
                 break;
             }
 

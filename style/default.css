@@ -29,6 +29,7 @@ http://emojisymbols.com/
     bottom: 0;
 }
 
+/*todo: retina? */
 .thumb16 {
     background-image: url(chrome-extension://__MSG_@@extension_id__/images/dislikeicon16.png) !important;
     background-size: 16px 16px !important;

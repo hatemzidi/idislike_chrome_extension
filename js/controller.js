@@ -4,5 +4,5 @@
 var dslkr = new iDislike();
 
 setInterval(function() {
-	dslkr.addThumb();
+	dslkr.addThumbs();
 }, 1000); // evry 1 sec
