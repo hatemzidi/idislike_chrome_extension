@@ -21,8 +21,8 @@ function iDislike() {
             'textarea[name="add_comment_text"],' +
             'textarea[name="xhpc_message_text"], ' +
             'textarea[name="xhpc_message"], ' +
+            '._5yk2,' +   // status for personal page
             '.shareInput, ' +
-            '._5yk2,' +
                 //'.UFIAddCommentInput,' +
             '.UFIInputContainer'
         ).not('[data-dslkr-status]').each(function () {
@@ -41,8 +41,6 @@ function iDislike() {
             inputContainer = $el.parent();
         }
 
-        //var containerHeight = inputContainer.height();
-
         var $dslkrBttn = $('<div class="dslkr_container " ' +
             'aria-label="Dislike" data-hover="tooltip" data-tooltip-alignh="center"' + //tooltip
             '>' +
@@ -51,10 +49,8 @@ function iDislike() {
 
         $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
 
-        //$dslkrBttn.css('height', containerHeight);
-
         $(inputContainer).append($dslkrBttn);
-        $dslkrBttn.on('click', me.insertEmoticon);
+        $dslkrBttn.on('click', {origin: 'comment'}, me.insertEmoticon);
     };
 
 
@@ -79,19 +75,20 @@ function iDislike() {
         $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
 
         $emoticonPanel.append($dslkrBttn);
-        $dslkrBttn.on('click', me.insertEmoticon);
+        $dslkrBttn.on('click', {origin: 'chat'}, me.insertEmoticon);
         $emoticonPanel.attr('data-dslkr-status', 1);
     };
 
     this.insertEmoticon = function (e) {
         var inputField = me.findInputField(e.target);
+        var data = e.data;
 
         inputField.focus();
 
         var ev = document.createEvent('TextEvent');
         ev.initTextEvent('textInput', true, true, null, ' \uD83D\uDC4E ', 9, 'en-US');
 
-        me.updateCounter();
+        me.updateCounter(data.origin);
 
         setTimeout(function () {
             inputField.dispatchEvent(ev);
@@ -138,9 +135,8 @@ function iDislike() {
     };
 
     // this is just a counter, no data are stored
-    this.updateCounter = function (item) {
-        // item may be used to distinguish between types : chatbox, status, comments ....
-        $('body').append('<img src="http://idislike.hatemzidi.com/update.php?r=fb"/>')
+    this.updateCounter = function (origin) {
+        $('body').append('<img src="http://idislike.hatemzidi.com/update.php?r=fb&o=' + origin + '/>');
     };
 
 }
