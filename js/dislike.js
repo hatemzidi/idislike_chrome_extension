@@ -4,8 +4,6 @@
  Unicode: U+1F44E (U+D83D U+DC4E), UTF-8: F0 9F 91 8E
  */
 
-var myid = chrome.i18n.getMessage("@@extension_id");
-
 
 function iDislike() {
 
@@ -113,7 +111,7 @@ function iDislike() {
                 // Trigger click on '.UFIAddCommentInput' to enable [contenteditable]
                 $(commInput).click();
                 $(commInput).attr('data-dslkr-clicked', 1);
-                $('.UFIAddCommentInput', wrapperEl).addClass('emj'); // apply the emoji police 
+                $('.UFIAddCommentInput', wrapperEl).addClass('emj'); // apply the emoji police
             }                                                        //todo : apply only with old browsers
 
             if ($('textarea', wrapperEl).length > 0) {
