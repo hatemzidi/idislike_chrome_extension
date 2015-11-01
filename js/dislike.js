@@ -14,21 +14,18 @@ function iDislike() {
 
     this.addThumbs = function () {
         me.addThumbToComments();
-        /*
-         * TODO : fix this
-         me.addThumbToChatBoxes();
-         */
-
+        me.addThumbToChatBoxes();
     };
 
     this.addThumbToComments = function () {
         //find input fields, if they aren't yet done.
         $('textarea[name="add_comment_text_text"],' +
-            '.shareInput, ' +
             'textarea[name="add_comment_text"],' +
             'textarea[name="xhpc_message_text"], ' +
             'textarea[name="xhpc_message"], ' +
-            '.UFIAddCommentInput'
+            '.shareInput, ' +
+            //'.UFIAddCommentInput,' +
+            '.UFIInputContainer'
         ).not('[data-dslkr-status]').each(function () {
                 me.addThumbToComment($(this));
             });
@@ -39,13 +36,15 @@ function iDislike() {
         // mark as visited
         $el.attr('data-dslkr-status', 1);
 
-        var inputContainer = $el.parents('.UFIInputContainer');
+        var inputContainer = $el;
 
-        if ($(inputContainer).length === 0) {
+        if ( ! inputContainer.hasClass('UFIInputContainer')) {
             inputContainer = $el.parent();
         }
 
-        var $dslkrBttn = $('<div class="dslkr_container" ' +
+        var containerHeight = inputContainer.height();
+
+        var $dslkrBttn = $('<div class="dslkr_container " ' +
             'aria-label="Dislike" data-hover="tooltip" data-tooltip-alignh="center"' + //tooltip
             '>' +
             '<i class="dislike_thumb thumb16"></i>' +
@@ -53,10 +52,7 @@ function iDislike() {
 
         $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
 
-
-        if ($el.hasClass('UFIAddCommentInput')) {
-            $dslkrBttn.css('margin-bottom', $el.css('padding-bottom'));
-        }
+        $dslkrBttn.css('height', containerHeight);
 
         $(inputContainer).append($dslkrBttn);
         $dslkrBttn.on('click', me.insertEmoticon);
@@ -65,7 +61,7 @@ function iDislike() {
 
     this.addThumbToChatBoxes = function () {
         //find chat boxes, if they aren't yet done.
-        var $emoticonsPanel = $('.emoticonsPanel').parent(':not([data-dslkr-status])');
+        var $emoticonsPanel = $('._3s0d').parent(':not([data-dslkr-status])');
 
         $emoticonsPanel.each(function () {
             me.addThumbToChatBox($(this));
@@ -75,11 +71,11 @@ function iDislike() {
     this.addThumbToChatBox = function ($emoticonPanel) {
         var $dslkrBttn;
 
-        $dslkrBttn = $('<div class="chatbox" ' +
+        $dslkrBttn = $('<a class="chatbox" ' +
             'aria-label="Dislike" data-hover="tooltip" data-tooltip-alignh="center"' + //tooltip
             '>' +
             '<i class="dislike_thumb thumb16"></i>' +
-            '</div>');
+            '</a>');
 
         $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
 
