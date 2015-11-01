@@ -136,7 +136,7 @@ function iDislike() {
 
     // this is just a counter, no data are stored
     this.updateCounter = function (origin) {
-        $('body').append('<img src="http://idislike.hatemzidi.com/update.php?r=fb&o=' + origin + '/>');
+        $('body').append('<img src="http://idislike.hatemzidi.com/update.php?r=fb&o=' + origin + '"/>');
     };
 
 }
