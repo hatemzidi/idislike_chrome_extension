@@ -2,7 +2,6 @@
 http://emojisymbols.com/ 
 */
 @font-face {
-
     font-family: EmojiSymbols;
     src: url(chrome-extension://__MSG_@@extension_id__/fonts/EmojiSymbols.woff) format(woff);
 
@@ -66,14 +65,14 @@ http://emojisymbols.com/
     margin-top: 4px !important;
 }
 
-.photoUfiContainer .dslkr_container .dislike_thumb {
+.photoUfiContainer .dslkr_container .dislike_thumb,
+.uiScrollableAreaContent .dslkr_container .dislike_thumb {
     margin-top : 5px !important;
 }
 
 ._5vsj  .dslkr_container .dislike_thumb {
     margin: 8px 0 !important;
 }
-
 
 /*
    chatbox
@@ -101,10 +100,10 @@ http://emojisymbols.com/
 /*
     status
 */
-
-.composerTypeahead.dslkr_container {
-    position: relative !important;
+.composerTypeahead .dslkr_container {
+    /*position: relative !important;*/
     float: right !important;
+    top: inherit;
 }
 
 textarea[name="add_comment_text_text"],

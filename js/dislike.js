@@ -22,7 +22,8 @@ function iDislike() {
             'textarea[name="xhpc_message_text"], ' +
             'textarea[name="xhpc_message"], ' +
             '.shareInput, ' +
-            //'.UFIAddCommentInput,' +
+            '._5yk2,' +
+                //'.UFIAddCommentInput,' +
             '.UFIInputContainer'
         ).not('[data-dslkr-status]').each(function () {
                 me.addThumbToComment($(this));
@@ -36,11 +37,11 @@ function iDislike() {
 
         var inputContainer = $el;
 
-        if ( ! inputContainer.hasClass('UFIInputContainer')) {
+        if (!inputContainer.hasClass('UFIInputContainer')) {
             inputContainer = $el.parent();
         }
 
-        var containerHeight = inputContainer.height();
+        //var containerHeight = inputContainer.height();
 
         var $dslkrBttn = $('<div class="dslkr_container " ' +
             'aria-label="Dislike" data-hover="tooltip" data-tooltip-alignh="center"' + //tooltip
@@ -50,7 +51,7 @@ function iDislike() {
 
         $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
 
-        $dslkrBttn.css('height', containerHeight);
+        //$dslkrBttn.css('height', containerHeight);
 
         $(inputContainer).append($dslkrBttn);
         $dslkrBttn.on('click', me.insertEmoticon);

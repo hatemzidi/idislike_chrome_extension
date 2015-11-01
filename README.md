@@ -23,7 +23,7 @@ just install it, and disapprove that status, image or comment ! ;)
 changelog
 ---------
 
-v 0.8
+v 0.8.x
 - another milestone to cover the new facebook's design for 2015
 - better performance and visual integration
 
