@@ -50,6 +50,11 @@ function iDislike() {
         $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
 
         $(inputContainer).append($dslkrBttn);
+
+        $(inputContainer).find('[contenteditable]').addClass('box');
+        //todo disabled, can't figure out how to manage the text area now ...
+        // $(inputContainer).find('textarea').addClass('box');
+
         $dslkrBttn.on('click', {origin: 'comment'}, me.insertEmoticon);
     };
 
@@ -66,6 +71,9 @@ function iDislike() {
     this.addThumbToChatBox = function ($emoticonPanel) {
         var $dslkrBttn;
 
+        // mark as visited
+        $emoticonPanel.attr('data-dslkr-status', 1);
+
         $dslkrBttn = $('<a class="chatbox" ' +
             'aria-label="Dislike" data-hover="tooltip" data-tooltip-alignh="center"' + //tooltip
             '>' +
@@ -73,10 +81,12 @@ function iDislike() {
             '</a>');
 
         $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
-
         $emoticonPanel.append($dslkrBttn);
+
+        //todo disabled, can't figure out how to manage the text area now ...
+        // $emoticonPanel.find('textarea').addClass('box');
+
         $dslkrBttn.on('click', {origin: 'chat'}, me.insertEmoticon);
-        $emoticonPanel.attr('data-dslkr-status', 1);
     };
 
     this.insertEmoticon = function (e) {
@@ -88,11 +98,10 @@ function iDislike() {
         var ev = document.createEvent('TextEvent');
         ev.initTextEvent('textInput', true, true, null, ' \uD83D\uDC4E ', 9, 'en-US');
 
+        inputField.dispatchEvent(ev);
+
         me.updateCounter(data.origin);
 
-        setTimeout(function () {
-            inputField.dispatchEvent(ev);
-        }, 55);
     };
 
     this.findInputField = function (dslkrEl) {
