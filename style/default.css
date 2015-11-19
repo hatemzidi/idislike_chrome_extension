@@ -15,7 +15,7 @@ http://emojisymbols.com/
     font-style: normal;
 }
 
-.dslkr_container {
+.commentbox {
     width: 16px;
     height: 16px;
     cursor: pointer;
@@ -24,7 +24,7 @@ http://emojisymbols.com/
     right: 1px;
     margin-right: 3px;
     bottom: 0;
-    top:0;
+    top: 0;
 }
 
 /*todo: retina? */
@@ -32,7 +32,6 @@ http://emojisymbols.com/
     background-image: url(chrome-extension://__MSG_@@extension_id__/images/dislikeicon16.png) !important;
     background-size: 16px 16px !important;
 }
-
 
 /*
     comments
@@ -43,34 +42,33 @@ http://emojisymbols.com/
 
 }
 
-.dslkr_container .dislike_thumb,
+.commentbox .dislike_thumb,
 .chatbox .dislike_thumb {
     background-position: 0 0;
     display: block;
     width: 16px;
     height: 16px;
-    position:absolute;
-    top:0;
-    bottom:0;
-    margin:auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
 
 }
 
-
-.UFIReplyList .UFIRow .dslkr_container .dislike_thumb {
+.UFIReplyList .UFIRow .commentbox .dislike_thumb {
     margin-top: 3px !important;
 }
 
-.photoUfiContainer .UFIReplyList .UFIRow .dslkr_container .dislike_thumb {
+.photoUfiContainer .UFIReplyList .UFIRow .commentbox .dislike_thumb {
     margin-top: 4px !important;
 }
 
-.photoUfiContainer .dslkr_container .dislike_thumb,
-.uiScrollableAreaContent .dslkr_container .dislike_thumb {
-    margin-top : 5px !important;
+.photoUfiContainer .commentbox .dislike_thumb,
+.uiScrollableAreaContent .commentbox .dislike_thumb {
+    margin-top: 5px !important;
 }
 
-._5vsj  .dslkr_container .dislike_thumb {
+._5vsj .commentbox .dislike_thumb {
     margin: 8px 0 !important;
 }
 
@@ -80,11 +78,11 @@ http://emojisymbols.com/
 .chatbox {
     position: relative;
     float: left;
-    height : 28px
+    height: 28px
 }
 
 .chatbox .dislike_thumb {
-    margin : 5px 0 !important;
+    margin: 5px 0 !important;
 }
 
 ._8ms ._5g2o {
@@ -95,12 +93,10 @@ http://emojisymbols.com/
     float: left;
 }
 
-
-
 /*
     status
 */
-.composerTypeahead .dslkr_container {
+.composerTypeahead .commentbox {
     /*position: relative !important;*/
     float: right !important;
     top: inherit;
@@ -114,8 +110,6 @@ textarea[name="xhpc_message_text"] {
     width: -moz-calc(100% - 20px) !important;
     width: calc(100% - 20px) !important;
 }
-
-
 
 /*
     rewriting facebook's css
@@ -156,13 +150,11 @@ html.celery-facebook-tab ._2nb ._1s5 {
     left: 491px !important;
 }
 
-
-
 /* ----- RTL ----
     well ... just fixing the rtl pages (arabic, hebrew ... whatever from right to left)
 */
 
-body[dir='rtl'] .dslkr_container {
+body[dir='rtl'] .commentbox {
     right: auto;
     left: 1px;
     margin-right: 0;
@@ -179,7 +171,6 @@ body[dir="rtl"] .UFIAddCommentInput ._5yw9 {
     padding-right: 0 !important;
 }
 
-
 body[dir="rtl"] .fbNubFlyoutFooter ._5g2o {
     width: 45px;
 }
@@ -187,7 +178,6 @@ body[dir="rtl"] .fbNubFlyoutFooter ._5g2o {
 body[dir="rtl"] .fbNubFlyoutFooter ._5g2o > a {
     float: right;
 }
-
 
 body[dir="rtl"] .fbNubFlyoutFooter > div:first-child {
     padding-left: 96px;

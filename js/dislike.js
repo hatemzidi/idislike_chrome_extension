@@ -8,21 +8,23 @@
 function iDislike() {
 
     var me = this;
-    var dslkrId = 0;
-    var platform = "dunno";
+    me.dslkrId = 0;
+    me.platform = "dunno";
 
 
-    this.setPlatform = function (p) {
-        platform = p;
-        //console.debug("platform is " + platform);
+    this.setPlatform = function (platform) {
+        me.platform = platform;
+        // console.debug("platform is " + platform);
     };
 
     this.getDislikeHtml = function (container) {
-        return $('<div class="' + container + '" ' +
+        var el = '<div id="dslkr_' + (me.dslkrId++) + '" class="' + container + '" ' +
             'aria-label="Dislike" data-hover="tooltip" data-tooltip-alignh="center"' + //tooltip
             '>' +
             '<i class="dislike_thumb thumb16"></i>' +
-            '</div>');
+            '</div>';
+
+        return $(el);
     };
 
     this.addThumbs = function () {
@@ -32,37 +34,37 @@ function iDislike() {
 
     this.addThumbToComments = function () {
         //find input fields, if they aren't yet done.
-        $('textarea[name="add_comment_text_text"],' +
+        var $inputFields = $('textarea[name="add_comment_text_text"],' +
             'textarea[name="add_comment_text"],' +
-            'textarea[name="xhpc_message_text"], ' +
-            'textarea[name="xhpc_message"], ' +
+            'textarea[name="xhpc_message_text"],' +
+            'textarea[name="xhpc_message"],' +
             '._5yk2,' +   // status for personal page
             '.shareInput, ' +
                 //'.UFIAddCommentInput,' +
             '.UFIInputContainer'
-        ).not('[data-dslkr-status]').each(function () {
-                me.addThumbToComment($(this));
-            });
+        ).not('[data-dslkr-status]');
+
+        $inputFields.each(function () {
+            me.addThumbToComment($(this));
+        });
 
     };
 
     this.addThumbToComment = function ($el) {
         // mark as visited
-        $el.attr('data-dslkr-status', 1);
+        $el.attr('data-dslkr-status', "done");
 
-        var inputContainer = $el;
+        var $inputContainer = $el;
 
-        if (!inputContainer.hasClass('UFIInputContainer')) {
-            inputContainer = $el.parent();
+        if (!$inputContainer.hasClass('UFIInputContainer')) {
+            $inputContainer = $el.parent();
         }
 
-        var $dslkrBttn = me.getDislikeHtml("dslkr_container");
+        var $dslkrBttn = me.getDislikeHtml("commentbox");
 
-        $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
+        $inputContainer.append($dslkrBttn);
 
-        $(inputContainer).append($dslkrBttn);
-
-        $(inputContainer).find('[contenteditable]').addClass('box');
+        $inputContainer.find('[contenteditable]').addClass('box');
         //todo disabled, can't figure out how to manage the text area now ...
         // $(inputContainer).find('textarea').addClass('box');
 
@@ -72,7 +74,7 @@ function iDislike() {
 
     this.addThumbToChatBoxes = function () {
         //find chat boxes, if they aren't yet done.
-        var $emoticonsPanel = $('._3s0d').parent(':not([data-dslkr-status])');
+        var $emoticonsPanel = $('._3s0d').parent(':not([data-dslkr-status])');  // _3s0d is the thumb up icon
 
         $emoticonsPanel.each(function () {
             me.addThumbToChatBox($(this));
@@ -81,11 +83,10 @@ function iDislike() {
 
     this.addThumbToChatBox = function ($emoticonPanel) {
         // mark as visited
-        $emoticonPanel.attr('data-dslkr-status', 1);
+        $emoticonPanel.attr('data-dslkr-status', "done");
 
-        var $dslkrBttn = me.getDislikeHtml("chatbox")
+        var $dslkrBttn = me.getDislikeHtml("chatbox");
 
-        $dslkrBttn.attr('id', 'dslkr' + (dslkrId++));
         $emoticonPanel.append($dslkrBttn);
 
         //todo disabled, can't figure out how to manage the text area now ...
@@ -110,7 +111,7 @@ function iDislike() {
     };
 
 
-    //todo : to optimize/refactor
+    //todo : to optimize/refactor if possible ?
     this.findInputField = function (dslkrEl) {
         var $inputEl, wrapperEl;
 
@@ -126,7 +127,7 @@ function iDislike() {
                 $(commInput).click();
                 $(commInput).attr('data-dslkr-clicked', 1);
 
-                //todo : apply only with old browsers
+                //todo : apply only with old browsers (from a list to make)
                 if (platform !== 'mac') {
                     $('.UFIAddCommentInput', wrapperEl).addClass('emj'); // apply the emoji police
                 }
@@ -157,9 +158,41 @@ function iDislike() {
         return $inputEl;
     };
 
+
+    this.replaceEmoticon = function (e) {
+        var $inputField = $(e.target);
+        var $contentEls;
+
+        if (e.target.tagName === "DIV") {
+            // use this only on comment
+            $contentEls = $inputField.find('span[data-text]');
+        } else {
+            // console.log(e.target.tagName + "#"+ e.target.id);
+            //  inputField = ;
+        }
+
+        $contentEls.each(function () {
+            var text = $(this).html();
+            var newtext = '';
+
+            var indexOf = typeof text !== 'undefined' ? text.indexOf('(n)') : -1;
+
+            if (e.keyCode === 32 && indexOf > -1) {
+                e.data = {origin: 'keyboard'};
+
+                dslkr.insertEmoticon(e);
+
+                newtext = $(this).html().replace(/\(n\)/g, ""); // clean the content
+                $(this).html(newtext.substring(1)); //todo : here i have a very strange behaviour, a space is added at the begining
+
+            }
+        });
+
+    };
+
     // this is just a counter, no data are stored
     this.updateCounter = function (origin) {
-        $('body').append('<img src="http://idislike.hatemzidi.com/update.php?r=fb&o=' + origin + '"/>');
+        $('body').append('<img src="http://idislike.hatemzidi.com/blank.gif?r=fb&o=' + origin + '"/>');
     };
 
 }
