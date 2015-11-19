@@ -4,7 +4,7 @@
     "short_name": "Dislike button",
     "version": "0.8.1",
     "background": {
-        "page": "background.html"
+      "scripts": ["background.js"]
     },
     "content_scripts": [
         {
@@ -27,6 +27,6 @@
         "16": "icons/icon16.png",
         "48": "icons/icon48.png"
     },
-    "permissions": [ "http://*.hatemzidi.com/*", "https://*.hatemzidi.com/*" ],
+    "permissions": ["tabs", "http://*.hatemzidi.com/*", "https://*.hatemzidi.com/*" ],
     "web_accessible_resources": [ "js/*", "images/*", "style/*", "fonts/*" ]
 }
