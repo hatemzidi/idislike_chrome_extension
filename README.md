@@ -1,4 +1,4 @@
-Dislike Button for Facebook ![alt text](https://raw.github.com/hatemzidi/dislikeBookmarklet/master/images/logo.png)
+(DEPRECATED) Dislike Button for Facebook ![alt text](https://raw.github.com/hatemzidi/dislikeBookmarklet/master/images/logo.png)
 ========================
 
 This is a chrome extension that, as suggests the name,can be used to add a dislike emoji
